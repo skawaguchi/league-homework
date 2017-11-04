@@ -1,14 +1,35 @@
-# Usage
-This application assumes that you have `yarn` installed. If not, see the [installation instructions](https://yarnpkg.com/en/docs/install).
+# League Homework Assignment: Time Range Subtraction
+
+## Prerequisites
+This application prefers that you have `yarn` installed. If not, see the [installation instructions](https://yarnpkg.com/en/docs/install).You may also use normal `npm`, which is bundled with node.
+
+This application is developed using Node 6. To switch between versions you're best off using `nvm`. If you don't have it and work with Node regularly, I suggest you get it.
 
 ## Installing the Application
+Run `nvm use` to use the correct version of Node for this application.
+
 Run `yarn` to install the project dependencies.
 
+## Testing the Application
 Run `yarn test` to run tests in watch mode for active development.
 
 Run `yarn test:once` to run tests once.
 
 Run `yarn eslint` to lint your files.
+
+Run `var verify` to lint and test your files.
+
+## Running the Application
+Refer to the [acceptance test scenarios]('./__tests__/acceptance/scenarios.spec.js) for examples of how to use the application.
+
+To run the application directly: 
+```js
+const parseInput = require('time-range-parser').parseInput;
+const someInput = '(9:00-11:00, 13:00-15:00) "minus" (9:00-9:15, 10:00-10:15, 12:30-16:00)';
+
+parseInput(someInput); // output: '(9:15-10:00, 10:15-11:00)'
+
+```
 
 ## Assumptions
 These are boundary conditions that I would usually ask about before doing the exercise. What I'll do is to list them out and pretend that they were answered.

@@ -1,26 +1,27 @@
-const targetMap = {
-    0: 'start',
-    1: 'end'
+const getTime = (hour, minutes) => ({
+    hour: parseInt(hour, 10),
+    minute: parseInt(minutes, 10)
+});
+
+const parseTimeList = (time) => {
+    const hoursMinutes = time.split(':');
+
+    return getTime(hoursMinutes[0], hoursMinutes[1]);
 };
 
-function parseTimeList(list) {
-    return list.reduce((accumulator, time, index) => {
-        const hoursMinutes = time.split(':');
-        const attr = targetMap[index];
+const parseRangeList = (rangeList) => {
+    const parsedList = rangeList.split('-')
+        .map(parseTimeList);
 
-        accumulator[attr] = {
-            hour: parseInt(hoursMinutes[0], 10),
-            minute: parseInt(hoursMinutes[1], 10)
-        };
-
-        return accumulator;
-    }, {});
-}
+    return {
+        start: parsedList[0],
+        end: parsedList[1]
+    };
+};
 
 export function parseRange(input) {
-    const rangeList = input
+    return input
         .substring(1, input.length - 1)
-        .split('-');
-
-    return parseTimeList(rangeList);
+        .split(', ')
+        .map(parseRangeList);
 }

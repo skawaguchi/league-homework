@@ -1,6 +1,6 @@
-import { parseRange } from '../../src/string-parser';
+import { parseRange } from '../../src/range-parser';
 
-describe('String Parser', () => {
+describe('Range Parser', () => {
     it('should transform a range string to a workable range object', () => {
         const rangeString = '(9:35-18:00)';
         const expectedRange = {

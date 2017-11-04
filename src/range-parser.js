@@ -1,9 +1,14 @@
+const targetMap = {
+    0: 'start',
+    1: 'end'
+};
+
 function parseTimeList(list) {
     return list.reduce((accumulator, time, index) => {
         const hoursMinutes = time.split(':');
-        const target = index === 0 ? 'start' : 'end';
+        const attr = targetMap[index];
 
-        accumulator[target] = {
+        accumulator[attr] = {
             hour: parseInt(hoursMinutes[0], 10),
             minute: parseInt(hoursMinutes[1], 10)
         };

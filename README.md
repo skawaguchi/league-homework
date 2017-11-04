@@ -17,7 +17,7 @@ These are boundary conditions that I would usually ask about before doing the ex
 3. Will there always be a `:` separating hours and minutes, and a `-` separating the start and terminal values of each range? Assuming 'yes'.
 4. Will this ever need to be adjusted for timezone? Assuming 'no', but may use moment.
 5. Is using a 24-hour clock ok? Assuming 'yes' since that's the example.
-6. Will there every be overlaps in A or B? For example, would I get `(9:00-11:00, 10:00-12:00) “minus” (19:00-20:00, 19:30-21:355)`. Assuming 'sure, why not?' since it shouldn't matter.
+6. Will there every be overlaps in A or B? For example, would I get `(9:00-11:00, 10:00-12:00) “minus” (19:00-20:00, 19:30-21:355)` where the base times are overlapping? Assuming 'no' since it would introduce unneeded complexity to this challenge.
 
 ## Defensive Programming
 These are things I'd consider doing, but won't in the interest of getting this challenge done. I just want to make it clear that these are factors I'd consider.
@@ -36,6 +36,8 @@ This led me to thinking along these lines:
 2. I considered a data structure like a stack as the first link suggested for a quick second, but realized that we don't need that. Simple arrays should do. 
 3. The essential algorithm is simply to loop through each interval in (A) and compare it to each interval in (B). That could have performance implications, but I'll worry about that later.
 4. The other important question is what we convert the string input to. I thought that reducing to milliseconds would be the easiest. I started out with an object, however, because I feel that would give us the clearest meaning as we work through the problem space. I also looked at `moment.js` objects, but decided against adding a dependency (and point of failure) as well as the complexity. If I went with a POJO then I could always use that to create another object. Since I write this using TDD, I'm not afraid of that kind of refactoring.
+5. After getting into the problem space more, I decided to introduce `moment.js` after all to simplify the comparison aspect of the solution. We don't _need_ it, but it just makes this simpler. I like `moment` because it's very declarative and this code will be easier to process for the reader. The alternative is to work with the `Date` object directly. We could easily just hard-code a year, month, etc. and just deal with the output milliseconds from the epoch, but who wants to look at that? Not me! If forced to, say, because we don't want the external dependency, then I'd do that but extract it into its own class.
+6. It's looking like Big-O `O(A * B)` is unavoidable. It's not bad.
 
 # Original Coding problem
 Write a program that will subtract one list of time ranges from another. Formally: for two

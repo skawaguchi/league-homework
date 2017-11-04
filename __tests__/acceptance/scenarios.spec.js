@@ -29,4 +29,11 @@ describe('Acceptance Test Scenarios', () => {
             '(9:00-9:30)'
         );
     });
+
+    describe('Scenario 4: Multiple Base Ranges with a Subtractive Range that Overlaps Both', () => {
+        testOutput(
+            '(9:00-9:30, 10:00-10:30) "minus" (9:15-10:15)',
+            '(9:00-9:15, 10:15-10:30)'
+        );
+    })
 });

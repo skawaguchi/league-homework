@@ -10,12 +10,14 @@
         "babel-plugin-transform-object-rest-spread": "6.26.0",
         "babel-preset-es2015": "6.24.1",
         "babel-preset-es2016": "6.24.1",
+        "chance": "1.0.12",
         "eslint": "4.9.0",
         "eslint-config-airbnb-base": "12.0.2",
         "eslint-plugin-import": "2.7.0",
         "eslint-plugin-jest": "21.2.0",
         "husky": "beta",
-        "jest": "21.2.1"
+        "jest": "21.2.1",
+        "sinon": "4.1.1"
     },
     "jest": {
         "coverageThreshold": {

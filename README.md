@@ -17,7 +17,9 @@ Run `yarn test:once` to run tests once.
 
 Run `yarn eslint` to lint your files.
 
-Run `var verify` to lint and test your files.
+Run `yarn verify` to lint and test your files.
+
+**Note:** `yarn verify` runs on `git push`.
 
 ## Running the Application
 Refer to the [acceptance test scenarios]('./__tests__/acceptance/scenarios.spec.js) for examples of how to use the application.

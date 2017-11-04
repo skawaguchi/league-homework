@@ -17,9 +17,9 @@ function parseTimeList(list) {
     }, {});
 }
 
-export function parseRange(range) {
-    const rangeList = range
-        .substring(1, range.length - 1)
+export function parseRange(input) {
+    const rangeList = input
+        .substring(1, input.length - 1)
         .split('-');
 
     return parseTimeList(rangeList);

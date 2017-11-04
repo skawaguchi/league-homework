@@ -14,6 +14,7 @@
         "eslint-config-airbnb-base": "12.0.2",
         "eslint-plugin-import": "2.7.0",
         "eslint-plugin-jest": "21.2.0",
+        "husky": "beta",
         "jest": "21.2.1"
     },
     "jest": {
@@ -27,8 +28,13 @@
         },
         "verbose": true
     },
+    "husky": {
+        "hooks": {
+            "pre-push": "yarn verify"
+        }
+    },
     "scripts": {
-        "eslint": "node_modules/.bin/eslint ./{src,__tests__}/**/*.js",
+        "eslint": "node_modules/.bin/eslint ./{src,__tests__}/**/*.js --cache ",
         "test": "yarn test:watch",
         "test:once": "jest --coverage",
         "test:watch": "jest --watch",

@@ -1,0 +1,38 @@
+{
+    "name": "league-homework",
+    "version": "1.0.0",
+    "description": "Take home test for Stephen Kawaguchi",
+    "main": "index.js",
+    "repository": "https://skawaguchi@github.com/skawaguchi/league-homework.git",
+    "author": "Stephen Kawaguchi <stephen.kawaguchi@gmail.com>",
+    "devDependencies": {
+        "babel-jest": "21.2.0",
+        "babel-plugin-transform-object-rest-spread": "6.26.0",
+        "babel-preset-es2015": "6.24.1",
+        "babel-preset-es2016": "6.24.1",
+        "eslint": "4.9.0",
+        "eslint-config-airbnb-base": "12.0.2",
+        "eslint-plugin-import": "2.7.0",
+        "eslint-plugin-jest": "21.2.0",
+        "jest": "21.2.1"
+    },
+    "jest": {
+        "coverageThreshold": {
+            "global": {
+                "branches": 100,
+                "functions": 100,
+                "lines": 100,
+                "statements": 100
+            }
+        },
+        "verbose": true
+    },
+    "scripts": {
+        "eslint": "node_modules/.bin/eslint ./{src,__tests__}/**/*.js",
+        "test": "yarn test:watch",
+        "test:once": "jest --coverage",
+        "test:watch": "jest --watch",
+        "verify": "yarn eslint && yarn test:run-once"
+    },
+    "license": "MIT"
+}

@@ -39,7 +39,7 @@
         "eslint": "node_modules/.bin/eslint ./{src,__tests__}/**/*.js --cache ",
         "test": "yarn test:watch",
         "test:once": "jest --coverage",
-        "test:watch": "jest --watch",
+        "test:watch": "jest --watch --coverage",
         "verify": "yarn eslint && yarn test:once"
     },
     "license": "MIT"

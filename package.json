@@ -5,6 +5,9 @@
     "main": "index.js",
     "repository": "https://skawaguchi@github.com/skawaguchi/league-homework.git",
     "author": "Stephen Kawaguchi <stephen.kawaguchi@gmail.com>",
+    "dependencies": {
+        "moment": "2.19.1"
+    },
     "devDependencies": {
         "babel-jest": "21.2.0",
         "babel-plugin-transform-object-rest-spread": "6.26.0",

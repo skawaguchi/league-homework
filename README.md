@@ -52,7 +52,7 @@ These are boundary conditions that I would usually ask about before doing the ex
 3. Will there always be a `:` separating hours and minutes, and a `-` separating the start and terminal values of each range? Assuming 'yes'.
 4. Will this ever need to be adjusted for timezone? Assuming 'no', but may use moment.
 5. Is using a 24-hour clock ok? Assuming 'yes' since that's the example.
-6. Will there every be overlaps in A or B? For example, would I get `(9:00-11:00, 10:00-12:00) “minus” (19:00-20:00, 19:30-21:355)` where the base times are overlapping? Assuming 'no' 
+6. Will there every be overlaps in A or B? For example, would I get `(9:00-11:00, 10:00-12:00) "minus" (19:00-20:00, 19:30-21:355)` where the base times are overlapping? Assuming 'no' 
 7. Do we add leading zeroes in? Assuming 'no' since that's what's in the examples (missed this).
 8. Were the `"` and `"` characters around `minus` intentional, or can I just use `"`? Assuming 'yes' and that the proper quotes were not a trick.
 
@@ -83,18 +83,18 @@ B.
 
 A time range has a start time and an end time. You can define times and time ranges
 however you want (Unix timestamps, date/time objects in your preferred language, the
-actual string “start-end”, etc).
+actual string "start-end", etc).
 
 Your solution shouldn’t rely on the granularity of the timestamps (so don’t, for example,
-iterate over all the times in all the ranges and check to see if that time is “in”).
+iterate over all the times in all the ranges and check to see if that time is "in").
 
 ## Examples
 ```
-(9:00-10:00) “minus” (9:00-9:30) = (9:30-10:00)
-(9:00-10:00) “minus” (9:00-10:00) = ()
-(9:00-9:30) “minus” (9:30-15:00) = (9:00-9:30)
-(9:00-9:30, 10:00-10:30) “minus” (9:15-10:15) = (9:00-9:15, 10:15-10:30)
-(9:00-11:00, 13:00-15:00) “minus” (9:00-9:15, 10:00-10:15, 12:30-16:00)
+(9:00-10:00) "minus" (9:00-9:30) = (9:30-10:00)
+(9:00-10:00) "minus" (9:00-10:00) = ()
+(9:00-9:30) "minus" (9:30-15:00) = (9:00-9:30)
+(9:00-9:30, 10:00-10:30) "minus" (9:15-10:15) = (9:00-9:15, 10:15-10:30)
+(9:00-11:00, 13:00-15:00) "minus" (9:00-9:15, 10:00-10:15, 12:30-16:00)
 = (9:15-10:00, 10:15-11:00)
 ```
 

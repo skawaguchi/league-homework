@@ -1,1 +1,1 @@
-export { parseInput } from './src/time-range-subtractor';
+export { parseInput } from './src/time-range-parser';

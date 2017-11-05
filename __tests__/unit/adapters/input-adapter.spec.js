@@ -1,17 +1,17 @@
 import Chance from 'chance';
 import sinon from 'sinon';
-import { parseList } from '../../src/list-parser';
+import { adaptInput } from '../../../src/adapters/input-adapter';
 
-import * as rangeParser from '../../src/range-parser';
+import * as timeRangeAdapter from '../../../src/adapters/time-range-adapter';
 
 const chance = new Chance();
 const sandbox = sinon.sandbox.create();
 
-describe('List Parser', () => {
+describe('Input Adapter', () => {
     let baseList;
     let subtractiveList;
     let rangeInputMock;
-    let parseRangeStub;
+    let adaptTimeRangeStub;
 
     beforeEach(() => {
         const someStartRange = chance.word();
@@ -22,7 +22,7 @@ describe('List Parser', () => {
 
         rangeInputMock = `${baseList} "minus" ${subtractiveList}`;
 
-        parseRangeStub = sandbox.stub(rangeParser, 'parseRange');
+        adaptTimeRangeStub = sandbox.stub(timeRangeAdapter, 'adaptTimeRange');
     });
 
     afterEach(() => {
@@ -30,10 +30,10 @@ describe('List Parser', () => {
     });
 
     it('should transform a list string to ranges', () => {
-        parseList(rangeInputMock);
+        adaptInput(rangeInputMock);
 
-        sinon.assert.calledWithExactly(parseRangeStub, baseList);
-        sinon.assert.calledWithExactly(parseRangeStub, subtractiveList);
+        sinon.assert.calledWithExactly(adaptTimeRangeStub, baseList);
+        sinon.assert.calledWithExactly(adaptTimeRangeStub, subtractiveList);
     });
 
     it('should extract the two lists of ranges', () => {
@@ -43,9 +43,9 @@ describe('List Parser', () => {
             subtractiveList: rangeMock
         };
 
-        parseRangeStub.returns(rangeMock);
+        adaptTimeRangeStub.returns(rangeMock);
 
-        const actualResult = parseList(rangeInputMock);
+        const actualResult = adaptInput(rangeInputMock);
 
         expect(actualResult).toEqual(expectedRusult);
     });

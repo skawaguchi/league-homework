@@ -1,24 +1,24 @@
 import Chance from 'chance';
 import sinon from 'sinon';
 
-import { parseInput } from '../../src/time-range-parser';
+import { parseTimeRangeInput } from '../../../src/commands/parse-time-range-input';
 
-import * as listParser from '../../src/list-parser';
-import * as timeRangeSubtractor from '../../src/time-range-subtractor';
-import * as outputParser from '../../src/output-parser';
+import * as inputAdapter from '../../../src/adapters/input-adapter';
+import * as timeRangeSubtractor from '../../../src/states/time-range-subtraction-state-machine';
+import * as outputAdapter from '../../../src/adapters/output-adapter';
 
 const sandbox = sinon.sandbox.create();
 const chance = new Chance();
 
 describe('Time Range Parser', () => {
-    let parseListStub;
+    let adaptInputStub;
     let timeRangeSubtractorStub;
-    let outputParserStub;
+    let adaptOuputStub;
 
     beforeEach(() => {
-        parseListStub = sandbox.stub(listParser, 'parseList');
+        adaptInputStub = sandbox.stub(inputAdapter, 'adaptInput');
         timeRangeSubtractorStub = sandbox.stub(timeRangeSubtractor, 'subtractRanges');
-        outputParserStub = sandbox.stub(outputParser, 'parseRange');
+        adaptOuputStub = sandbox.stub(outputAdapter, 'adaptOutput');
     });
 
     afterEach(() => {
@@ -34,22 +34,22 @@ describe('Time Range Parser', () => {
             };
             const timeRangeSubtractorResponseMock = chance.word();
 
-            parseListStub.returns(timeRangeResponseMock);
+            adaptInputStub.returns(timeRangeResponseMock);
             timeRangeSubtractorStub.returns(timeRangeSubtractorResponseMock);
 
             const outputMock = chance.word();
 
-            outputParserStub.returns(outputMock);
+            adaptOuputStub.returns(outputMock);
 
-            const actualResult = parseInput(inputString);
+            const actualResult = parseTimeRangeInput(inputString);
 
-            sinon.assert.calledWithExactly(parseListStub, inputString);
+            sinon.assert.calledWithExactly(adaptInputStub, inputString);
             sinon.assert.calledWithExactly(
                 timeRangeSubtractorStub,
                 timeRangeResponseMock.baseList,
                 timeRangeResponseMock.subtractiveList
             );
-            sinon.assert.calledWithExactly(outputParserStub, timeRangeSubtractorResponseMock);
+            sinon.assert.calledWithExactly(adaptOuputStub, timeRangeSubtractorResponseMock);
 
             expect(actualResult).toEqual(outputMock);
         });

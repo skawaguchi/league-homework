@@ -10,7 +10,7 @@ const getTimeString = (range) => {
     return `${hours}:${minutesWithLeadingZero}`;
 };
 
-export function parseRange(rangeList) {
+export function adaptOutput(rangeList) {
     const convertedRange = rangeList.map((range) => {
         const startOutput = getTimeString(range.start);
         const endOutput = getTimeString(range.end);

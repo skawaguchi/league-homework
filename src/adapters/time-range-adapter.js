@@ -4,9 +4,9 @@ const getTime = (hours, minutess) => ({
 });
 
 const parseTimeList = (time) => {
-    const hoursminutess = time.split(':');
+    const hoursMinutes = time.split(':');
 
-    return getTime(hoursminutess[0], hoursminutess[1]);
+    return getTime(hoursMinutes[0], hoursMinutes[1]);
 };
 
 const parseRangeList = (rangeList) => {
@@ -19,7 +19,7 @@ const parseRangeList = (rangeList) => {
     };
 };
 
-export function parseRange(input) {
+export function adaptTimeRange(input) {
     return input
         .substring(1, input.length - 1)
         .split(', ')

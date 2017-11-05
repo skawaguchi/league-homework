@@ -1,8 +1,8 @@
-import { parseInput } from '../../src/time-range-parser';
+import { parseTimeRangeInput } from '../../src/commands/parse-time-range-input';
 
 const testOutput = (input, expectedOutput) => {
     it('should subtract the expected value', () => {
-        const actualOutput = parseInput(input);
+        const actualOutput = parseTimeRangeInput(input);
 
         expect(actualOutput).toEqual(expectedOutput);
     });

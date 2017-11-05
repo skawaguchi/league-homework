@@ -1,17 +1,17 @@
-import { parseRange } from '../../src/output-parser';
+import { adaptOutput } from '../../../src/adapters/output-adapter';
 
 const getTime = (hours, minutes) => ({
     hours,
     minutes
 });
 
-describe('Output Parser', () => {
+describe('Output Adapter', () => {
     describe('Given an empty', () => {
         it('should return an empty range', () => {
             const rangeList = [];
             const expectedOutput = '()';
 
-            expect(parseRange(rangeList)).toEqual(expectedOutput);
+            expect(adaptOutput(rangeList)).toEqual(expectedOutput);
         });
     });
 
@@ -25,7 +25,7 @@ describe('Output Parser', () => {
             ];
             const expectedOutput = '(9:15-10:00)';
 
-            expect(parseRange(rangeList)).toEqual(expectedOutput);
+            expect(adaptOutput(rangeList)).toEqual(expectedOutput);
         });
     });
 
@@ -43,7 +43,7 @@ describe('Output Parser', () => {
             ];
             const expectedOutput = '(9:15-10:00, 11:00-18:45)';
 
-            expect(parseRange(rangeList)).toEqual(expectedOutput);
+            expect(adaptOutput(rangeList)).toEqual(expectedOutput);
         });
     });
 });

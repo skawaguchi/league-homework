@@ -1,1 +1,1 @@
-export { parseInput } from './src/time-range-parser';
+export { parseTimeRangeInput } from './src/commands/parse-time-range-input';

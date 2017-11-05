@@ -71,9 +71,6 @@ export function subtractRanges(baseRanges, subtractiveRanges) {
         };
     });
 
-    // We need a for loop because we delete values
-    // Note that I originally tried a reducer, but FP wasn't a good
-    // fit for this logic. At least for my brain.
     for (let i = 0; i < candidatesForInsertion.length; i++) {
         const candidate = candidatesForInsertion[i];
 

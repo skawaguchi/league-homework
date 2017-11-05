@@ -1,4 +1,4 @@
-import { subtractRanges } from '../../src/time-range-subtractor';
+import { subtractRanges } from '../../../src/states/time-range-subtraction-state-machine';
 
 describe('Time Range Subtractor', () => {
     const getTime = (hours, minutes) => ({

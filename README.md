@@ -38,13 +38,17 @@ The application is exported as a UMD Module at `./dist/LeagueHomework.js`. You c
 I've tried to capture my thought process for insight into my ways of working.
 
 ## Final Thoughts on Implementation
-I'm not exactly happy with my implementation. I think that the logic around the subtractive method is weak because it relies on side-effects to work in an non-obvious way. I think I cheated a bit in terms of extracting to reduce cyclomatic complexity. I should have been able to execute it using functional programming, but I couldn't figure out how to deal with the subtractive nature without extra iterations. So I erred on the side of less iterations than readability and function purity. Most of the time I lean the other way, so this was an exception.
+### Regrets
+I'm not exactly happy with my implementation. I think that the logic around the subtractive method is weak because it relies on side-effects. I think I cheated a bit in terms of extracting to reduce cyclomatic complexity. The better way would have been to create a state machine with the complex states (probably when the subtractive range is before or equals the base range, and when it is after). This would be scalable. However, when you TDD you can refactor this drastically without fear. However, I've run out of time for this take-home challenge.
 
-The other thing I'm pretty sure can use re-work is the way I'm storing time. I can probably just do away with the whole `start` / `end` thing and just use `moment` objects. 
+The other thing I'm pretty sure can use re-work is the way I'm storing time. I can probably just do away with the whole `start` / `end` thing and just use `moment` objects. I'm going to leave it as-is since using `moment` objects in a very isolated way allows us to create really simple POJOs. That's a good starting point, and again, if we need to refactor, we can because this code is TDD'd.
 
+### Summary
 Overall, I hope that this gives insight into how I think and work. My git commits, which you can view if you'd like (just ask me) to get a sense of my workflow, are pretty representative of how I work. It was tough doing this off-hours on a busy weekend, but at least it's an approximation of how I work so I hope that you see some value in this approach. 
 
-I understand that my style of programming may not appeal to all. After working for years trying to find the fast solution, I've come to the conclusion that I'd rather be methodical and approach my work as a craftsman. It probably has to do with my mostly enterprise experience for the past six years where scalability and extensibility are inevitable. This may not fit with all work environments and I'm OK with that. 
+I understand that my style of programming may not appeal to all. After working for years trying to find the fast solution, I've come to the conclusion that I'd rather be methodical and approach my work as a craftsman, and so far TDD is the best for that philosophy. It probably has to do with my mostly enterprise experience for the past six years where scalability and extensibility are inevitable. I hope that bias won't be held against me. 
+
+All that said, I'm open to other viewpoints, and am always eager to discuss them. I'm not naive or stubborn enough to think that this is the only way to code, after all. If you've made it this far, thanks for your attention and the opportunity to share my thoughts and philosophies. 
 
 ## Assumptions
 These are boundary conditions that I would usually ask about before doing the exercise. What I'll do is to list them out and pretend that they were answered.

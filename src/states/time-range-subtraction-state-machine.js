@@ -1,15 +1,5 @@
 import moment from 'moment';
 
-const subStartsBeforeOrEqualsBase = (base, sub) => base.start >= sub.start;
-
-const subEndsAfterOrEqualsBase = (base, sub) => base.end <= sub.end;
-
-const subStartsBeforeBaseEnds = (base, sub) => base.end > sub.start;
-
-const subEndsBeforeBase = (base, sub) => base.end > sub.end;
-
-const subEndsWithinBase = (base, sub) => base.end > sub.end && base.start < sub.end;
-
 const getTime = (hours, minutes) => ({
     hours,
     minutes
@@ -25,6 +15,16 @@ const getMomentRange = (range) => ({
     start: getMomentTime(range.start),
     end: getMomentTime(range.end)
 });
+
+const subStartsBeforeOrEqualsBase = (base, sub) => base.start >= sub.start;
+
+const subEndsAfterOrEqualsBase = (base, sub) => base.end <= sub.end;
+
+const subStartsBeforeBaseEnds = (base, sub) => base.end > sub.start;
+
+const subEndsBeforeBase = (base, sub) => base.end > sub.end;
+
+const subEndsWithinBase = (base, sub) => base.end > sub.end && base.start < sub.end;
 
 const processSubStartsBeforeEqualsBase = (candidatesForInsertion, candidate, sub, subTime, i) => {
     if (subEndsWithinBase(candidate.baseTime, subTime)) {

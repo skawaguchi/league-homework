@@ -7,12 +7,12 @@ describe('Range Parser', () => {
             const expectedRange = [
                 {
                     start: {
-                        hour: 9,
-                        minute: 35
+                        hours: 9,
+                        minutes: 35
                     },
                     end: {
-                        hour: 18,
-                        minute: 0
+                        hours: 18,
+                        minutes: 0
                     }
                 }
             ];
@@ -25,22 +25,22 @@ describe('Range Parser', () => {
             const expectedRange = [
                 {
                     start: {
-                        hour: 9,
-                        minute: 35
+                        hours: 9,
+                        minutes: 35
                     },
                     end: {
-                        hour: 18,
-                        minute: 0
+                        hours: 18,
+                        minutes: 0
                     }
                 },
                 {
                     start: {
-                        hour: 10,
-                        minute: 45
+                        hours: 10,
+                        minutes: 45
                     },
                     end: {
-                        hour: 12,
-                        minute: 0
+                        hours: 12,
+                        minutes: 0
                     }
                 }
             ];

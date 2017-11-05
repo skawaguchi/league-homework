@@ -10,12 +10,13 @@ const subEndsBeforeBase = (base, sub) => base.end > sub.end;
 
 const subEndsWithinBase = (base, sub) => base.end > sub.end && base.start < sub.end;
 
-const getTime = (hour, minute) => ({
-    hour, minute
+const getTime = (hours, minutes) => ({
+    hours,
+    minutes
 });
 
 const getMomentTime = (time) => {
-    const timeString = `${time.hour}:${time.minute}`;
+    const timeString = `${time.hours}:${time.minutes}`;
 
     return moment(timeString, 'HH:mm');
 };
@@ -37,16 +38,15 @@ export function subtractRanges(baseRanges, subtractiveRanges) {
     for (let i = 0; i < candidatesForInsertion.length; i++) {
         const candidate = candidatesForInsertion[i];
 
-        for (let j = 0; j < subtractiveRanges.length; j++) {
-            const sub = subtractiveRanges[j];
+        subtractiveRanges.forEach((sub) => {
             const subTime = getMomentRange(sub);
 
             if (subStartsBeforeOrEqualsBase(candidate.baseTime, subTime)) {
                 if (subEndsWithinBase(candidate.baseTime, subTime)) {
-                    candidate.base.start = getTime(sub.end.hour, sub.end.minute);
+                    candidate.base.start = getTime(sub.end.hours, sub.end.minutes);
                     candidate.baseTime.start = getMomentTime({
-                        hour: sub.end.hour,
-                        minute: sub.end.minute
+                        hours: sub.end.hours,
+                        minutes: sub.end.minutes
                     });
                 } else if (subEndsAfterOrEqualsBase(candidate.baseTime, subTime)) {
                     candidatesForInsertion.splice(i, 1);
@@ -54,8 +54,8 @@ export function subtractRanges(baseRanges, subtractiveRanges) {
             } else {
                 if (subEndsBeforeBase(candidate.baseTime, subTime)) {
                     const newCandidateBase = {
-                        start: getTime(sub.end.hour, sub.end.minute),
-                        end: getTime(candidate.base.end.hour, candidate.base.end.minute)
+                        start: getTime(sub.end.hours, sub.end.minutes),
+                        end: getTime(candidate.base.end.hours, candidate.base.end.minutes)
                     };
                     const newCandidateBaseTime = getMomentRange(newCandidateBase);
 
@@ -66,14 +66,14 @@ export function subtractRanges(baseRanges, subtractiveRanges) {
                 }
 
                 if (subStartsBeforeBaseEnds(candidate.baseTime, subTime)) {
-                    candidate.base.end = getTime(sub.start.hour, sub.start.minute);
+                    candidate.base.end = getTime(sub.start.hours, sub.start.minutes);
                     candidate.baseTime.end = getMomentTime({
-                        hour: sub.start.hour,
-                        minute: sub.start.minute
+                        hours: sub.start.hours,
+                        minutes: sub.start.minutes
                     });
                 }
             }
-        }
+        });
     }
 
     return candidatesForInsertion.map((candidate) => candidate.base);

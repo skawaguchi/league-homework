@@ -1,8 +1,8 @@
 import { parseRange } from '../../src/output-parser';
 
-const getTime = (hour, minute) => ({
-    hour,
-    minute
+const getTime = (hours, minutes) => ({
+    hours,
+    minutes
 });
 
 describe('Output Parser', () => {

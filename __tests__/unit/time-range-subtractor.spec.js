@@ -1,9 +1,9 @@
 import { subtractRanges } from '../../src/time-range-subtractor';
 
 describe('Time Range Subtractor', () => {
-    const getTime = (hour, minute) => ({
-        hour,
-        minute
+    const getTime = (hours, minutes) => ({
+        hours,
+        minutes
     });
 
     describe('Fully subtractive', () => {
@@ -54,7 +54,7 @@ describe('Time Range Subtractor', () => {
             });
 
             describe('and a subtractive range with an equal start and an end that is later than the base range', () => {
-                it('should subtract the subtractive range from the base rangea', () => {
+                it('should subtract the subtractive range from the base range', () => {
                     const baseRange = {
                         start: getTime(9, 0),
                         end: getTime(10, 0)

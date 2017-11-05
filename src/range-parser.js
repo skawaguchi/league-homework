@@ -1,12 +1,12 @@
-const getTime = (hour, minutes) => ({
-    hour: parseInt(hour, 10),
-    minute: parseInt(minutes, 10)
+const getTime = (hours, minutess) => ({
+    hours: parseInt(hours, 10),
+    minutes: parseInt(minutess, 10)
 });
 
 const parseTimeList = (time) => {
-    const hoursMinutes = time.split(':');
+    const hoursminutess = time.split(':');
 
-    return getTime(hoursMinutes[0], hoursMinutes[1]);
+    return getTime(hoursminutess[0], hoursminutess[1]);
 };
 
 const parseRangeList = (rangeList) => {

@@ -21,17 +21,18 @@ Run `yarn verify` to lint and test your files.
 
 **Note:** `yarn verify` runs on `git push`.
 
+## Publishing the Application
+Run `yarn dist` to output an unminified version of the application.
+
+Run `yarn dis:prod` to output a production version of the application.
+
+## Playing with the Application
+I've set up a sandbox file in `./sandbox/index.js` to be able to test outputs by running `yarn sandbox`. Feel free to modify the sandbox index file to try different inputs with the application. 
+
+Alternatively, you can simply import the `dist/LeagueHomework.js`. The `parseInput` method is exposed as the only export on that module.
+
 ## Running the Application
-Refer to the [acceptance test scenarios]('./__tests__/acceptance/scenarios.spec.js) for examples of how to use the application.
-
-To run the application directly: 
-```js
-const parseInput = require('time-range-parser').parseInput;
-const someInput = '(9:00-11:00, 13:00-15:00) "minus" (9:00-9:15, 10:00-10:15, 12:30-16:00)';
-
-parseInput(someInput); // output: '(9:15-10:00, 10:15-11:00)'
-
-```
+The application is exported as a UMD Module at `./dist/LeagueHomework.js`. You can `import` or `require` `parseInput` from there.
 
 # Process 'Journal'
 I've tried to capture my thought process for insight into my ways of working.
@@ -61,6 +62,7 @@ These are things I'd consider doing, but won't in the interest of getting this c
 1. Trim whitespace.
 2. Validate structure of a given range with a regex.
 3. Check input type before processing.
+4. Empty string or other falsey values.
 
 ## Original Thought Process for the Solution
 I'm not an algorithm master by any means. I researched the solution to this challenge by reading the following:

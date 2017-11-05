@@ -30,7 +30,7 @@ describe('Time Range Subtractor', () => {
             });
 
             describe('and a subtractive range with an earlier start and an end that equals the base range', () => {
-                it('should subtract the ', () => {
+                it('should subtract the subtractive range from the base range', () => {
                     const baseRange = {
                         start: getTime(9, 0),
                         end: getTime(10, 0)
@@ -54,7 +54,7 @@ describe('Time Range Subtractor', () => {
             });
 
             describe('and a subtractive range with an equal start and an end that is later than the base range', () => {
-                it('should subtract the ', () => {
+                it('should subtract the subtractive range from the base rangea', () => {
                     const baseRange = {
                         start: getTime(9, 0),
                         end: getTime(10, 0)
@@ -145,7 +145,7 @@ describe('Time Range Subtractor', () => {
 
             describe('and a subtractive range with a later start', () => {
                 describe('and an end that falls within the base range', () => {
-                    it('should subtract the subtractive range from the base range', () => {
+                    it('should result in multiple outputs with the subtractive range removed from the base range', () => {
                         const baseRange = {
                             start: getTime(9, 0),
                             end: getTime(10, 0)
@@ -197,6 +197,96 @@ describe('Time Range Subtractor', () => {
                             {
                                 start: getTime(9, 0),
                                 end: getTime(9, 30)
+                            }
+                        ];
+
+                        const actualOutput = subtractRanges(aRange, bRange);
+
+                        expect(actualOutput).toEqual(expectedOutput);
+                    });
+                });
+            });
+        });
+
+        describe('Given multiple base ranges', () => {
+            describe('and a subtractive range with an earlier start', () => {
+                describe('and an end that falls within the base range', () => {
+                    it('should subtract the subtractive range from the base range', () => {
+                        const baseRange = {
+                            start: getTime(9, 0),
+                            end: getTime(10, 0)
+                        };
+                        const anotherBaseRange = {
+                            start: getTime(11, 0),
+                            end: getTime(14, 0)
+                        };
+                        const aRange = [
+                            baseRange,
+                            anotherBaseRange
+                        ];
+
+                        const subtractiveRange = {
+                            start: getTime(8, 0),
+                            end: getTime(9, 15)
+                        };
+                        const anotherSubtractiveRange = {
+                            start: getTime(11, 0),
+                            end: getTime(18, 0)
+                        };
+                        const bRange = [
+                            subtractiveRange,
+                            anotherSubtractiveRange
+                        ];
+
+                        const expectedOutput = [
+                            {
+                                start: getTime(9, 15),
+                                end: getTime(10, 0)
+                            }
+                        ];
+
+                        const actualOutput = subtractRanges(aRange, bRange);
+
+                        expect(actualOutput).toEqual(expectedOutput);
+                    });
+                });
+
+                describe('and an end that is after the base range', () => {
+                    it('should subtract the subtractive range from the base range', () => {
+                        const baseRange = {
+                            start: getTime(9, 0),
+                            end: getTime(10, 0)
+                        };
+                        const anotherBaseRange = {
+                            start: getTime(11, 0),
+                            end: getTime(14, 0)
+                        };
+                        const aRange = [
+                            baseRange,
+                            anotherBaseRange
+                        ];
+
+                        const subtractiveRange = {
+                            start: getTime(9, 30),
+                            end: getTime(9, 45)
+                        };
+                        const anotherSubtractiveRange = {
+                            start: getTime(10, 15),
+                            end: getTime(18, 0)
+                        };
+                        const bRange = [
+                            subtractiveRange,
+                            anotherSubtractiveRange
+                        ];
+
+                        const expectedOutput = [
+                            {
+                                start: getTime(9, 0),
+                                end: getTime(9, 30)
+                            },
+                            {
+                                start: getTime(9, 45),
+                                end: getTime(10, 0)
                             }
                         ];
 

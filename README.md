@@ -33,6 +33,18 @@ parseInput(someInput); // output: '(9:15-10:00, 10:15-11:00)'
 
 ```
 
+# Process 'Journal'
+I've tried to capture my thought process for insight into my ways of working.
+
+## Final Thoughts on Implementation
+I'm not exactly happy with my implementation. I think that the logic around the subtractive method is weak because it relies on side-effects to work in an non-obvious way. I think I cheated a bit in terms of extracting to reduce cyclomatic complexity. I should have been able to execute it using functional programming, but I couldn't figure out how to deal with the subtractive nature without extra iterations. So I erred on the side of less iterations than readability and function purity. Most of the time I lean the other way, so this was an exception.
+
+The other thing I'm pretty sure can use re-work is the way I'm storing time. I can probably just do away with the whole `start` / `end` thing and just use `moment` objects. 
+
+Overall, I hope that this gives insight into how I think and work. My git commits, which you can view if you'd like (just ask me) to get a sense of my workflow, are pretty representative of how I work. It was tough doing this off-hours on a busy weekend, but at least it's an approximation of how I work so I hope that you see some value in this approach. 
+
+I understand that my style of programming may not appeal to all. After working for years trying to find the fast solution, I've come to the conclusion that I'd rather be methodical and approach my work as a craftsman. It probably has to do with my mostly enterprise experience for the past six years where scalability and extensibility are inevitable. This may not fit with all work environments and I'm OK with that. 
+
 ## Assumptions
 These are boundary conditions that I would usually ask about before doing the exercise. What I'll do is to list them out and pretend that they were answered.
 1. Will the terminal value of a given range ever be before the start value? Assuming 'no'.
@@ -49,7 +61,7 @@ These are things I'd consider doing, but won't in the interest of getting this c
 2. Validate structure of a given range with a regex.
 3. Check input type before processing.
 
-## Thought Process
+## Original Thought Process for the Solution
 I'm not an algorithm master by any means. I researched the solution to this challenge by reading the following:
 - https://softwareengineering.stackexchange.com/questions/241373/algorithm-for-flattening-overlapping-ranges
 - https://stackoverflow.com/questions/5712472/fastest-way-to-split-overlapping-date-ranges/5713241#5713241

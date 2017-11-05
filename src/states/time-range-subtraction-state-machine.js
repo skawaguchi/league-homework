@@ -26,7 +26,7 @@ const getMomentRange = (range) => ({
     end: getMomentTime(range.end)
 });
 
-const processBeforeOrEqualsBase = (candidatesForInsertion, candidate, sub, subTime, i) => {
+const processSubStartsBeforeEqualsBase = (candidatesForInsertion, candidate, sub, subTime, i) => {
     if (subEndsWithinBase(candidate.baseTime, subTime)) {
         candidate.base.start = getTime(sub.end.hours, sub.end.minutes);
         candidate.baseTime.start = getMomentTime({
@@ -38,7 +38,7 @@ const processBeforeOrEqualsBase = (candidatesForInsertion, candidate, sub, subTi
     }
 };
 
-const processSubAfterBase = (candidatesForInsertion, candidate, sub, subTime) => {
+const processSubStartAfterBase = (candidatesForInsertion, candidate, sub, subTime) => {
     if (subEndsBeforeBase(candidate.baseTime, subTime)) {
         const newCandidateBase = {
             start: getTime(sub.end.hours, sub.end.minutes),
@@ -78,9 +78,20 @@ export function subtractRanges(baseRanges, subtractiveRanges) {
             const subTime = getMomentRange(sub);
 
             if (subStartsBeforeOrEqualsBase(candidate.baseTime, subTime)) {
-                processBeforeOrEqualsBase(candidatesForInsertion, candidate, sub, subTime, i);
+                processSubStartsBeforeEqualsBase(
+                    candidatesForInsertion,
+                    candidate,
+                    sub,
+                    subTime,
+                    i
+                );
             } else {
-                processSubAfterBase(candidatesForInsertion, candidate, sub, subTime);
+                processSubStartAfterBase(
+                    candidatesForInsertion,
+                    candidate,
+                    sub,
+                    subTime
+                );
             }
         });
     }

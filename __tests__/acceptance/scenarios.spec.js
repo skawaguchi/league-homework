@@ -35,5 +35,12 @@ describe('Acceptance Test Scenarios', () => {
             '(9:00-9:30, 10:00-10:30) "minus" (9:15-10:15)',
             '(9:00-9:15, 10:15-10:30)'
         );
-    })
+    });
+
+    describe('Scenario 5: Multiple Base Ranges with Multiple Subtractive Ranges', () => {
+        testOutput(
+            '(9:00-11:00, 13:00-15:00) "minus" (9:00-9:15, 10:00-10:15, 12:30-16:00)',
+            '(9:15-10:00, 10:15-11:00)'
+        );
+    });
 });

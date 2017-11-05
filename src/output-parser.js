@@ -1,10 +1,13 @@
 const getUnitWithLeadingZero = (unit) => `0${unit}`.slice(-2);
 
 const getTimeString = (range) => {
-    const hour = range.hour;
-    const minute = getUnitWithLeadingZero(range.minute);
+    const {
+        hour,
+        minute
+    } = range;
+    const minuteWithLeadingZero = getUnitWithLeadingZero(minute);
 
-    return `${hour}:${minute}`;
+    return `${hour}:${minuteWithLeadingZero}`;
 };
 
 export function parseRange(rangeList) {

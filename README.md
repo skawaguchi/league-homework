@@ -54,6 +54,7 @@ These are boundary conditions that I would usually ask about before doing the ex
 5. Is using a 24-hour clock ok? Assuming 'yes' since that's the example.
 6. Will there every be overlaps in A or B? For example, would I get `(9:00-11:00, 10:00-12:00) “minus” (19:00-20:00, 19:30-21:355)` where the base times are overlapping? Assuming 'no' 
 7. Do we add leading zeroes in? Assuming 'no' since that's what's in the examples (missed this).
+8. Were the `"` and `"` characters around `minus` intentional, or can I just use `"`? Assuming 'yes' and that the proper quotes were not a trick.
 
 ## Defensive Programming
 These are things I'd consider doing, but won't in the interest of getting this challenge done. I just want to make it clear that these are factors I'd consider.

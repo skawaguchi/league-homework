@@ -8,8 +8,8 @@ const chance = new Chance();
 const sandbox = sinon.sandbox.create();
 
 describe('List Parser', () => {
-    let aList;
-    let bList;
+    let baseList;
+    let subtractiveList;
     let rangeInputMock;
     let parseRangeStub;
 
@@ -17,10 +17,10 @@ describe('List Parser', () => {
         const someStartRange = chance.word();
         const someEndRange = chance.word();
 
-        aList = `(${someStartRange})`;
-        bList = `(${someEndRange})`;
+        baseList = `(${someStartRange})`;
+        subtractiveList = `(${someEndRange})`;
 
-        rangeInputMock = `${aList} "minus" ${bList}`;
+        rangeInputMock = `${baseList} "minus" ${subtractiveList}`;
 
         parseRangeStub = sandbox.stub(rangeParser, 'parseRange');
     });
@@ -32,15 +32,15 @@ describe('List Parser', () => {
     it('should transform a list string to ranges', () => {
         parseList(rangeInputMock);
 
-        sinon.assert.calledWithExactly(parseRangeStub, aList);
-        sinon.assert.calledWithExactly(parseRangeStub, bList);
+        sinon.assert.calledWithExactly(parseRangeStub, baseList);
+        sinon.assert.calledWithExactly(parseRangeStub, subtractiveList);
     });
 
     it('should extract the two lists of ranges', () => {
         const rangeMock = chance.word();
         const expectedRusult = {
-            aList: rangeMock,
-            bList: rangeMock
+            baseList: rangeMock,
+            subtractiveList: rangeMock
         };
 
         parseRangeStub.returns(rangeMock);

@@ -4,7 +4,7 @@ export function parseList(input) {
     const lists = input.split(' "minus" ');
 
     return {
-        aList: parseRange(lists[0]),
-        bList: parseRange(lists[1])
+        baseList: parseRange(lists[0]),
+        subtractiveList: parseRange(lists[1])
     };
 }

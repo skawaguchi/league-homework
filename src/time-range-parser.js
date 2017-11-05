@@ -5,7 +5,7 @@ import { parseRange } from './output-parser';
 export function parseInput(input) {
     const parsedList = parseList(input);
 
-    const subtractedRanges = subtractRanges(parsedList.aList, parsedList.bList);
+    const subtractedRanges = subtractRanges(parsedList.baseList, parsedList.subtractiveList);
 
     return parseRange(subtractedRanges);
 }

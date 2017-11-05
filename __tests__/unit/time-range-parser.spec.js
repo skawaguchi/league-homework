@@ -29,8 +29,8 @@ describe('Time Range Parser', () => {
         it('should parse the list', () => {
             const inputString = chance.word();
             const timeRangeResponseMock = {
-                aList: chance.word(),
-                bList: chance.word()
+                baseList: chance.word(),
+                subtractiveList: chance.word()
             };
             const timeRangeSubtractorResponseMock = chance.word();
 
@@ -46,8 +46,8 @@ describe('Time Range Parser', () => {
             sinon.assert.calledWithExactly(parseListStub, inputString);
             sinon.assert.calledWithExactly(
                 timeRangeSubtractorStub,
-                timeRangeResponseMock.aList,
-                timeRangeResponseMock.bList
+                timeRangeResponseMock.baseList,
+                timeRangeResponseMock.subtractiveList
             );
             sinon.assert.calledWithExactly(outputParserStub, timeRangeSubtractorResponseMock);
 

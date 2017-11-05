@@ -1,5 +1,5 @@
 import { adaptInput } from '../adapters/input-adapter';
-import { subtractRanges } from '../states/time-range-subtraction-state-machine';
+import { subtractTimeRanges } from '../services/subtract-time-ranges';
 import { adaptOutput } from '../adapters/output-adapter';
 
 export function parseTimeRangeInput(input) {
@@ -8,7 +8,7 @@ export function parseTimeRangeInput(input) {
         subtractiveList
     } = adaptInput(input);
 
-    const subtractedRanges = subtractRanges(
+    const subtractedRanges = subtractTimeRanges(
         baseList,
         subtractiveList
     );

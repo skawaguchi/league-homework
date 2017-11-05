@@ -61,7 +61,7 @@ const processSubStartAfterBase = (candidatesForInsertion, candidate, sub, subTim
     }
 };
 
-export function subtractRanges(baseRanges, subtractiveRanges) {
+export function subtractTimeRanges(baseRanges, subtractiveRanges) {
     const candidatesForInsertion = baseRanges.map((base) => {
         const baseTime = getMomentRange(base);
 

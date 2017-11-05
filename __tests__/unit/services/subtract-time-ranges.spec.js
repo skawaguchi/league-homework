@@ -1,6 +1,6 @@
-import { subtractRanges } from '../../../src/states/time-range-subtraction-state-machine';
+import { subtractTimeRanges } from '../../../src/services/subtract-time-ranges';
 
-describe('Time Range Subtractor', () => {
+describe('Subtract Time Ranges Service', () => {
     const getTime = (hours, minutes) => ({
         hours,
         minutes
@@ -23,7 +23,7 @@ describe('Time Range Subtractor', () => {
                     ];
                     const expectedOutput = [];
 
-                    const actualOutput = subtractRanges(aRange, bRange);
+                    const actualOutput = subtractTimeRanges(aRange, bRange);
 
                     expect(actualOutput).toEqual(expectedOutput);
                 });
@@ -47,7 +47,7 @@ describe('Time Range Subtractor', () => {
                     ];
                     const expectedOutput = [];
 
-                    const actualOutput = subtractRanges(aRange, bRange);
+                    const actualOutput = subtractTimeRanges(aRange, bRange);
 
                     expect(actualOutput).toEqual(expectedOutput);
                 });
@@ -71,7 +71,7 @@ describe('Time Range Subtractor', () => {
                     ];
                     const expectedOutput = [];
 
-                    const actualOutput = subtractRanges(aRange, bRange);
+                    const actualOutput = subtractTimeRanges(aRange, bRange);
 
                     expect(actualOutput).toEqual(expectedOutput);
                 });
@@ -105,7 +105,7 @@ describe('Time Range Subtractor', () => {
                             }
                         ];
 
-                        const actualOutput = subtractRanges(aRange, bRange);
+                        const actualOutput = subtractTimeRanges(aRange, bRange);
 
                         expect(actualOutput).toEqual(expectedOutput);
                     });
@@ -136,7 +136,7 @@ describe('Time Range Subtractor', () => {
                             }
                         ];
 
-                        const actualOutput = subtractRanges(aRange, bRange);
+                        const actualOutput = subtractTimeRanges(aRange, bRange);
 
                         expect(actualOutput).toEqual(expectedOutput);
                     });
@@ -171,7 +171,7 @@ describe('Time Range Subtractor', () => {
                             }
                         ];
 
-                        const actualOutput = subtractRanges(aRange, bRange);
+                        const actualOutput = subtractTimeRanges(aRange, bRange);
 
                         expect(actualOutput).toEqual(expectedOutput);
                     });
@@ -200,7 +200,7 @@ describe('Time Range Subtractor', () => {
                             }
                         ];
 
-                        const actualOutput = subtractRanges(aRange, bRange);
+                        const actualOutput = subtractTimeRanges(aRange, bRange);
 
                         expect(actualOutput).toEqual(expectedOutput);
                     });
@@ -245,7 +245,7 @@ describe('Time Range Subtractor', () => {
                             }
                         ];
 
-                        const actualOutput = subtractRanges(aRange, bRange);
+                        const actualOutput = subtractTimeRanges(aRange, bRange);
 
                         expect(actualOutput).toEqual(expectedOutput);
                     });
@@ -290,7 +290,7 @@ describe('Time Range Subtractor', () => {
                             }
                         ];
 
-                        const actualOutput = subtractRanges(aRange, bRange);
+                        const actualOutput = subtractTimeRanges(aRange, bRange);
 
                         expect(actualOutput).toEqual(expectedOutput);
                     });

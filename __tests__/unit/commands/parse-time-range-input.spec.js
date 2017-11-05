@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import { parseTimeRangeInput } from '../../../src/commands/parse-time-range-input';
 
 import * as inputAdapter from '../../../src/adapters/input-adapter';
-import * as timeRangeSubtractor from '../../../src/states/time-range-subtraction-state-machine';
+import * as timeRangeSubtractor from '../../../src/services/subtract-time-ranges';
 import * as outputAdapter from '../../../src/adapters/output-adapter';
 
 const sandbox = sinon.sandbox.create();
@@ -17,7 +17,7 @@ describe('Time Range Parser', () => {
 
     beforeEach(() => {
         adaptInputStub = sandbox.stub(inputAdapter, 'adaptInput');
-        timeRangeSubtractorStub = sandbox.stub(timeRangeSubtractor, 'subtractRanges');
+        timeRangeSubtractorStub = sandbox.stub(timeRangeSubtractor, 'subtractTimeRanges');
         adaptOuputStub = sandbox.stub(outputAdapter, 'adaptOutput');
     });
 

@@ -6,10 +6,10 @@ const {
 module.exports = {
     entry: './index',
     output: {
-        library: 'LeagueHomework',
+        library: 'TimeRangeParser',
         libraryTarget: 'umd',
         path: path.resolve(__dirname, 'dist'),
-        filename: 'LeagueHomework.js'
+        filename: 'time-range-parser.js'
     },
     plugins: [
         new IgnorePlugin(/^\.\/locale$/, /moment$/)

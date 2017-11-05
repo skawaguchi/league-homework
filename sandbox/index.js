@@ -1,4 +1,4 @@
-import { parseTimeRangeInput } from '../dist/LeagueHomework';
+import { parseTimeRangeInput } from '../dist/time-range-parser';
 
 const input = '(9:00-11:00, 13:00-15:00) "minus" (9:00-9:15, 10:00-10:15, 12:30-16:00)';
 

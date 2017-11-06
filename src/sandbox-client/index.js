@@ -29,6 +29,11 @@ function SandboxClientApp() {
                 <code>{'9:35-10:00, 11:00-16:00'}</code>
             </p>
 
+            <h2>{'Notes on Date Formats'}</h2>
+            <ul>
+                <li>{'Use 24-hour times. Am/PM is not supported'}</li>
+            </ul>
+
             <code>
                 {'(9:00-10:00) "minus" (9:00-9:30) = (9:30-10:00)'}
                 <br/>

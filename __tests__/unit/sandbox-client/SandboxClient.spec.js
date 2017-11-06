@@ -2,8 +2,12 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 
-import SandboxClient from '../../src/sandbox-client/SandboxClient';
-import * as command from '../../src/commands/parse-time-range-input';
+import SandboxClient from '../../../src/sandbox-client/SandboxClient';
+
+import ErrorContainer from '../../../src/sandbox-client/ErrorContainer';
+import Inputs from '../../../src/sandbox-client/Inputs';
+
+import * as command from '../../../src/commands/parse-time-range-input';
 
 const sandbox = sinon.sandbox.create();
 
@@ -46,26 +50,12 @@ describe('<SandboxClient/>', () => {
     });
 
     it('should render the range calculation elements', () => {
-        const base = component.find('.base');
-        const minus = component.find('.minus-text');
-        const subtractive = component.find('.subtractive');
-        const equals = component.find('.equals-text');
+        const inputs = component.find(Inputs);
 
-        expect(base).toHaveLength(1);
-        expect(minus).toHaveLength(1);
-        expect(subtractive).toHaveLength(1);
-        expect(equals).toHaveLength(1);
-    });
-
-    it('should render the output element', () => {
-        const output = component.find('.output');
-        const outputTextInput = component.find('.output input');
-
-        expect(output).toHaveLength(1);
-        expect(outputTextInput).toHaveLength(1);
-
-        expect(outputTextInput.props().readOnly).toBe('readOnly');
-        expect(outputTextInput.props().value).toEqual(component.state.outputText);
+        expect(inputs).toHaveLength(1);
+        expect(inputs.props().baseRangeText).toEqual(component.state().baseRangeText);
+        expect(inputs.props().subtractiveRangeText).toEqual(component.state().subtractiveRangeText);
+        expect(inputs.props().outputText).toEqual(component.state().outputText);
     });
 
     it('should render the calculate button container', () => {
@@ -74,15 +64,16 @@ describe('<SandboxClient/>', () => {
         expect(calculate).toHaveLength(1);
     });
 
-    it('should not render the error container', () => {
-        const errors = component.find('.errors');
+    it('should render the error container', () => {
+        const errors = component.find(ErrorContainer);
 
-        expect(errors).toHaveLength(0);
+        expect(errors).toHaveLength(1);
+        expect(errors.props().errors).toBe(component.state().errors);
     });
 
     describe('when the base range input is changed', () => {
         it('should update the base range text', () => {
-            const baseInput = component.find('.base input');
+            const inputs = component.find(Inputs);
             const inputMock = 'some input';
             const event = {
                 target: {
@@ -90,7 +81,7 @@ describe('<SandboxClient/>', () => {
                 }
             };
 
-            baseInput.simulate('change', event);
+            inputs.props().onBaseChanged(event);
 
             expect(component.state().baseRangeText).toBe(inputMock);
         });
@@ -98,7 +89,7 @@ describe('<SandboxClient/>', () => {
 
     describe('when the subtractive range input is changed', () => {
         it('should update the subtractive range text', () => {
-            const subtractiveInput = component.find('.subtractive input');
+            const inputs = component.find(Inputs);
             const inputMock = 'some input';
             const event = {
                 target: {
@@ -106,7 +97,7 @@ describe('<SandboxClient/>', () => {
                 }
             };
 
-            subtractiveInput.simulate('change', event);
+            inputs.props().onSubtractiveChanged(event);
 
             expect(component.state().subtractiveRangeText).toBe(inputMock);
         });

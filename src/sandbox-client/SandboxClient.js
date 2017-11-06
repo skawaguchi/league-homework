@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
+import ErrorContainer from './ErrorContainer';
+import Inputs from './Inputs';
+
 import { parseTimeRangeInput } from '../commands/parse-time-range-input';
 
 class SandboxClient extends Component {
@@ -8,7 +12,7 @@ class SandboxClient extends Component {
 
         this.state = {
             baseRangeText: props.defaultBaseRangeText,
-            error: null,
+            errors: null,
             outputText: '',
             subtractiveRangeText: props.defaultSubtractiveRangeText
         };
@@ -45,12 +49,12 @@ class SandboxClient extends Component {
             const outputText = parseTimeRangeInput(calculationText);
 
             this.setState({
-                error: null,
+                errors: null,
                 outputText
             });
         } catch (error) {
             this.setState({
-                error: 'There is a problem with your input. Please double-check your formatting.',
+                errors: 'There is a problem with your input. Please double-check your formatting.',
                 outputText: 'ERROR'
             });
 
@@ -62,37 +66,13 @@ class SandboxClient extends Component {
         return (
             <section className='sandbox-client'>
                 <h2>{'Input Ranges'}</h2>
-                <p className='input-container'>
-                    <span className='base'>
-                        <input
-                            onChange={this.onBaseChanged}
-                            placeholder='Enter time range(s)'
-                            type='text'
-                            value={this.state.baseRangeText}
-                        />
-                    </span>
-                    <span className='minus-text'>
-                        {'"minus"'}
-                    </span>
-                    <span className='subtractive'>
-                        <input
-                            onChange={this.onSubtractiveChanged}
-                            placeholder='Enter subtractive range(s)'
-                            type='text'
-                            value={this.state.subtractiveRangeText}
-                        />
-                    </span>
-                    <span className='equals-text'>
-                        {'='}
-                    </span>
-                    <span className='output'>
-                        <input
-                            readOnly='readOnly'
-                            type='text'
-                            value={this.state.outputText}
-                        />
-                    </span>
-                </p>
+                <Inputs
+                    baseRangeText={this.state.baseRangeText}
+                    onBaseChanged={this.onBaseChanged}
+                    onSubtractiveChanged={this.onSubtractiveChanged}
+                    outputText={this.state.outputText}
+                    subtractiveRangeText={this.state.subtractiveRangeText}
+                />
                 <p className='calculate'>
                     <button
                         onClick={this.onCalculate}
@@ -100,13 +80,7 @@ class SandboxClient extends Component {
                         {'Calculate'}
                     </button>
                 </p>
-                {
-                    this.state.error ?
-                        <p className='errors'>
-                            {this.state.error}
-                        </p> :
-                        null
-                }
+                <ErrorContainer errors={this.state.errors}/>
             </section>
         );
     }

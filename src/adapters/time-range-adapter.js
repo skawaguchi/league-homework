@@ -22,6 +22,7 @@ const parseRangeList = (rangeList) => {
 export function adaptTimeRange(input) {
     return input
         .substring(1, input.length - 1)
-        .split(', ')
+        .replace(/^\s+|\s+$/g, '')
+        .split(',')
         .map(parseRangeList);
 }

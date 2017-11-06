@@ -1,9 +1,9 @@
 # League Homework Assignment: Time Range Subtraction
 
 ## Prerequisites
-This application prefers that you have `yarn` installed. If not, see the [installation instructions](https://yarnpkg.com/en/docs/install).You may also use normal `npm`, which is bundled with node.
+This application prefers that you have `yarn` installed. If not, see the [installation instructions](https://yarnpkg.com/en/docs/install).You may also use normal `npm install`, which is bundled with node, but the app was developed with `yarn` in mind.
 
-This application is developed using Node 6. To switch between versions you're best off using `nvm`. If you don't have it and work with Node regularly, I suggest you get it.
+This application is developed using Node 6.11.x. To switch between versions you're best off using `nvm`. It should run fine on other versions, but it's better to match the one this was developed on.
 
 ## Installing the Application
 Run `nvm use` to use the correct version of Node for this application.
@@ -21,27 +21,26 @@ Run `yarn verify` to lint and test your files.
 
 **Note:** `yarn verify` runs on `git push`.
 
+## Playing with the Application
+Run `yarn start` and a React application will start to play with the application. 
+
 ## Publishing the Application
-Run `yarn dist` to output an unminified version of the application.
+**Note:** The application was originally created with the idea to export it as a module, but after creating the React application, this seems unnecessary. I left it in here in you case you wanted it for some reason.
+
+Run `yarn dist` to output an un-minified version of the application.
 
 Run `yarn dis:prod` to output a production version of the application.
 
-## Playing with the Application
-I've set up a sandbox file in `./sandbox/index.js` to be able to test outputs by running `yarn sandbox`. Feel free to modify the sandbox index file to try different inputs with the application. 
-
-Alternatively, you can simply import the `dist/LeagueHomework.js`. The `parseInput` method is exposed as the only export on that module.
-
-## Running the Application
-The application is exported as a UMD Module at `./dist/LeagueHomework.js`. You can `import` or `require` `parseInput` from there.
-
-# Process 'Journal'
+# Process Journal
 I've tried to capture my thought process for insight into my ways of working.
 
-## Final Thoughts on Implementation
+## Thoughts on Implementation
 ### Regrets
 I'm not exactly happy with my implementation. I think that the logic around the subtractive method is weak because it relies on side-effects. I think I cheated a bit in terms of extracting to reduce cyclomatic complexity. The better way would have been to create a state machine with the complex states (probably when the subtractive range is before or equals the base range, and when it is after). This would be scalable. However, when you TDD you can refactor this drastically without fear. However, I've run out of time for this take-home challenge.
 
 The other thing I'm pretty sure can use re-work is the way I'm storing time. I can probably just do away with the whole `start` / `end` thing and just use `moment` objects. I'm going to leave it as-is since using `moment` objects in a very isolated way allows us to create really simple POJOs. That's a good starting point, and again, if we need to refactor, we can because this code is TDD'd.
+
+After seeing the UI, I realized that sorting the output and combining ranges that intersect or overlap would be good.
 
 ### Summary
 Overall, I hope that this gives insight into how I think and work. My git commits, which you can view if you'd like (just ask me) to get a sense of my workflow, are pretty representative of how I work. It was tough doing this off-hours on a busy weekend, but at least it's an approximation of how I work so I hope that you see some value in this approach. 
@@ -60,13 +59,14 @@ These are boundary conditions that I would usually ask about before doing the ex
 6. Will there every be overlaps in A or B? For example, would I get `(9:00-11:00, 10:00-12:00) "minus" (19:00-20:00, 19:30-21:355)` where the base times are overlapping? Assuming 'no' 
 7. Do we add leading zeroes in? Assuming 'no' since that's what's in the examples (missed this).
 8. Were the `"` and `"` characters around `minus` intentional, or can I just use `"`? Assuming 'yes' and that the proper quotes were not a trick.
+9: Do I need to sort the output? Assuming 'no'.
+10. Do I need to check the output for overlapping ranges and do a union on them? Assuming 'no'.
 
 ## Defensive Programming
 These are things I'd consider doing, but won't in the interest of getting this challenge done. I just want to make it clear that these are factors I'd consider.
-1. Trim whitespace.
-2. Validate structure of a given range with a regex.
-3. Check input type before processing.
-4. Empty string or other falsey values.
+1. Validate structure of a given range with a regex.
+2. Check input type before processing.
+3. Empty string or other falsey values.
 
 ## Original Thought Process for the Solution
 I'm not an algorithm master by any means. I researched the solution to this challenge by reading the following:
@@ -81,6 +81,7 @@ This led me to thinking along these lines:
 4. The other important question is what we convert the string input to. I thought that reducing to milliseconds would be the easiest. I started out with an object, however, because I feel that would give us the clearest meaning as we work through the problem space. I also looked at `moment.js` objects, but decided against adding a dependency (and point of failure) as well as the complexity. If I went with a POJO then I could always use that to create another object. Since I write this using TDD, I'm not afraid of that kind of refactoring.
 5. After getting into the problem space more, I decided to introduce `moment.js` after all to simplify the comparison aspect of the solution. We don't _need_ it, but it just makes this simpler. I like `moment` because it's very declarative and this code will be easier to process for the reader. The alternative is to work with the `Date` object directly. We could easily just hard-code a year, month, etc. and just deal with the output milliseconds from the epoch, but who wants to look at that? Not me! If forced to, say, because we don't want the external dependency, then I'd do that but extract it into its own class.
 6. It's looking like Big-O `O(A * B)` is unavoidable. It's not bad.
+7. A React interface to test the application live.
 
 # Original Coding problem
 Write a program that will subtract one list of time ranges from another. Formally: for two

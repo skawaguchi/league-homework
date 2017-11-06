@@ -1,7 +1,7 @@
 import { adaptTimeRange } from '../../../src/adapters/time-range-adapter';
 
 describe('Time Range Adapter', () => {
-    describe('Given a single range', () => {
+    describe('Given a range string', () => {
         it('should transform a range string to a workable range object', () => {
             const rangeString = '(9:35-18:00)';
             const expectedRange = [
@@ -41,6 +41,35 @@ describe('Time Range Adapter', () => {
                     end: {
                         hours: 12,
                         minutes: 0
+                    }
+                }
+            ];
+
+            expect(adaptTimeRange(rangeString)).toEqual(expectedRange);
+        });
+
+        it('should strip whitespace', () => {
+            const rangeString = '( 9:00     -    10: 00 , 11:00-20:15  )  ';
+
+            const expectedRange = [
+                {
+                    start: {
+                        hours: 9,
+                        minutes: 0
+                    },
+                    end: {
+                        hours: 10,
+                        minutes: 0
+                    }
+                },
+                {
+                    start: {
+                        hours: 11,
+                        minutes: 0
+                    },
+                    end: {
+                        hours: 20,
+                        minutes: 15
                     }
                 }
             ];

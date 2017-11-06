@@ -10,7 +10,11 @@ const parseTimeList = (time) => {
 };
 
 const parseRangeList = (rangeList) => {
-    const parsedList = rangeList.split('-')
+    const whiteSpaceRegex = /\s/g;
+
+    const parsedList = rangeList
+        .replace(whiteSpaceRegex, '')
+        .split('-')
         .map(parseTimeList);
 
     return {
@@ -22,7 +26,6 @@ const parseRangeList = (rangeList) => {
 export function adaptTimeRange(input) {
     return input
         .substring(1, input.length - 1)
-        .replace(/^\s+|\s+$/g, '')
         .split(',')
         .map(parseRangeList);
 }

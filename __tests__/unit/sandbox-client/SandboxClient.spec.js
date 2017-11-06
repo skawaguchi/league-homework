@@ -4,7 +4,7 @@ import sinon from 'sinon';
 
 import SandboxClient from '../../../src/sandbox-client/SandboxClient';
 
-import ErrorContainer from '../../../src/sandbox-client/ErrorContainer';
+import Errors from '../../../src/sandbox-client/Errors';
 import Inputs from '../../../src/sandbox-client/Inputs';
 
 import * as command from '../../../src/commands/parse-time-range-input';
@@ -65,7 +65,7 @@ describe('<SandboxClient/>', () => {
     });
 
     it('should render the error container', () => {
-        const errors = component.find(ErrorContainer);
+        const errors = component.find(Errors);
 
         expect(errors).toHaveLength(1);
         expect(errors.props().errors).toBe(component.state().errors);

@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import ErrorContainer from '../../../src/sandbox-client/ErrorContainer';
+import Errors from '../../../src/sandbox-client/Errors';
 
-describe('<ErrorContainer/>', () => {
+describe('<Errors/>', () => {
     let component;
     let props;
 
@@ -12,7 +12,7 @@ describe('<ErrorContainer/>', () => {
             ...propOverrides
         });
 
-        component = shallow(<ErrorContainer {...props}/>);
+        component = shallow(<Errors {...props}/>);
     };
 
     describe('Given no errors', () => {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import ErrorContainer from './ErrorContainer';
+import Errors from './Errors';
 import Inputs from './Inputs';
 
 import { parseTimeRangeInput } from '../commands/parse-time-range-input';
@@ -80,7 +80,7 @@ class SandboxClient extends Component {
                         {'Calculate'}
                     </button>
                 </p>
-                <ErrorContainer errors={this.state.errors}/>
+                <Errors errors={this.state.errors}/>
             </section>
         );
     }

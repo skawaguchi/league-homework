@@ -9,7 +9,11 @@
     },
     "author": "Stephen Kawaguchi <stephen.kawaguchi@gmail.com>",
     "dependencies": {
+        "html-webpack-plugin": "2.30.1",
         "moment": "2.19.1",
+        "prop-types": "15.6.0",
+        "react": "16.0.0",
+        "react-dom": "16.0.0",
         "webpack": "3.8.1"
     },
     "devDependencies": {
@@ -20,15 +24,23 @@
         "babel-plugin-transform-object-rest-spread": "6.26.0",
         "babel-preset-es2015": "6.24.1",
         "babel-preset-es2016": "6.24.1",
+        "babel-preset-react": "6.24.1",
         "chance": "1.0.12",
+        "clean-webpack-plugin": "0.1.17",
+        "enzyme": "3.1.1",
+        "enzyme-adapter-react-16": "1.0.4",
         "eslint": "4.9.0",
         "eslint-config-airbnb-base": "12.0.2",
         "eslint-plugin-import": "2.7.0",
         "eslint-plugin-jest": "21.2.0",
+        "eslint-plugin-react": "7.4.0",
+        "handlebars-loader": "1.6.0",
         "husky": "beta",
         "jest": "21.2.1",
+        "react-test-renderer": "16.0.0",
         "sinon": "4.1.1",
-        "uglifyjs-webpack-plugin": "1.0.1"
+        "uglifyjs-webpack-plugin": "1.0.1",
+        "webpack-dev-server": "2.9.4"
     },
     "jest": {
         "coverageThreshold": {
@@ -39,6 +51,16 @@
                 "statements": 100
             }
         },
+        "coveragePathIgnorePatterns": [
+            "./jest-config"
+        ],
+        "modulePathIgnorePatterns": [
+            "./jest-config"
+        ],
+        "setupFiles": [
+            "./jest-config/raf-polyfill.js",
+            "./jest-config/test-setup.js"
+        ],
         "verbose": true
     },
     "husky": {
@@ -51,7 +73,7 @@
         "dist:dev": "rm -rf ./dist && node_modules/.bin/webpack --progress --devtool source-map --config webpack.dev.config.js",
         "dist:prod": "rm -rf ./dist && node_modules/.bin/webpack --progress --config webpack.prod.config.js",
         "eslint": "node_modules/.bin/eslint ./{src,__tests__}/**/*.js --cache ",
-        "sandbox": "node_modules/.bin/babel-node ./sandbox/index",
+        "start": "webpack-dev-server --config ./webpack.sandbox-client.config.js --progress --colors --open",
         "test": "yarn test:watch",
         "test:once": "jest --coverage",
         "test:watch": "jest --watch --coverage",

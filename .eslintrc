@@ -1,9 +1,19 @@
 {
+    "env": {
+        "jest/globals": true
+    },
     "extends": [
-        "airbnb-base"
+        "airbnb-base",
+        "plugin:react/recommended"
     ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
     "plugins": [
-        "jest"
+        "jest",
+        "react"
     ],
     "rules": {
         "arrow-parens": [2, "always"],
@@ -23,8 +33,5 @@
         "no-console": [2, {
             "allow": ["warn", "error"]
         }]
-    },
-    "env": {
-        "jest/globals": true
     }
 }

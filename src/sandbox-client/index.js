@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import SandboxClient from './SandboxClient';
 
+import '../../styles/sandbox-client.css';
+
 function SandboxClientApp() {
     return (
         <main>

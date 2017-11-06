@@ -295,6 +295,53 @@ describe('Subtract Time Ranges Service', () => {
                         expect(actualOutput).toEqual(expectedOutput);
                     });
                 });
+
+                it('should sort the results', () => {
+                    const baseRange = {
+                        start: getTime(21, 0),
+                        end: getTime(22, 0)
+                    };
+                    const anotherBaseRange = {
+                        start: getTime(7, 0),
+                        end: getTime(8, 0)
+                    };
+                    const yetAnotherBaseRange = {
+                        start: getTime(23, 0),
+                        end: getTime(23, 30)
+                    };
+                    const aRange = [
+                        baseRange,
+                        anotherBaseRange,
+                        yetAnotherBaseRange
+                    ];
+
+                    const subtractiveRange = {
+                        start: getTime(7, 45),
+                        end: getTime(21, 30)
+                    };
+                    const bRange = [
+                        subtractiveRange
+                    ];
+
+                    const expectedOutput = [
+                        {
+                            start: getTime(7, 0),
+                            end: getTime(7, 45)
+                        },
+                        {
+                            start: getTime(21, 30),
+                            end: getTime(22, 0)
+                        },
+                        {
+                            start: getTime(23, 0),
+                            end: getTime(23, 30)
+                        }
+                    ];
+
+                    const actualOutput = subtractTimeRanges(aRange, bRange);
+
+                    expect(actualOutput).toEqual(expectedOutput);
+                });
             });
         });
     });

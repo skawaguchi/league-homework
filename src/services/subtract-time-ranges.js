@@ -5,10 +5,11 @@ const getTime = (hours, minutes) => ({
     minutes
 });
 
+const dateFormat = 'HH:mm';
 const getMomentTime = (time) => {
     const timeString = `${time.hours}:${time.minutes}`;
 
-    return moment(timeString, 'HH:mm');
+    return moment(timeString, dateFormat);
 };
 
 const getMomentRange = (range) => ({
@@ -61,6 +62,14 @@ const processSubStartAfterBase = (candidatesForInsertion, candidate, sub, subTim
     }
 };
 
+const sortRange = (range) =>
+    range.sort((a, b) => {
+        const aStart = getMomentTime(a.start);
+        const bStart = getMomentTime(b.start);
+
+        return aStart > bStart;
+    });
+
 export function subtractTimeRanges(baseRanges, subtractiveRanges) {
     const candidatesForInsertion = baseRanges.map((base) => {
         const baseTime = getMomentRange(base);
@@ -96,5 +105,7 @@ export function subtractTimeRanges(baseRanges, subtractiveRanges) {
         });
     }
 
-    return candidatesForInsertion.map((candidate) => candidate.base);
+    const mappedCandidates = candidatesForInsertion.map((candidate) => candidate.base);
+
+    return sortRange(mappedCandidates);
 }

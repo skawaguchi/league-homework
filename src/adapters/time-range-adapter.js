@@ -10,10 +10,7 @@ const parseTimeList = (time) => {
 };
 
 const parseRangeList = (rangeList) => {
-    const whiteSpaceRegex = /\s/g;
-
     const parsedList = rangeList
-        .replace(whiteSpaceRegex, '')
         .split('-')
         .map(parseTimeList);
 

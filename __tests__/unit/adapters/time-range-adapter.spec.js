@@ -47,34 +47,5 @@ describe('Time Range Adapter', () => {
 
             expect(adaptTimeRange(rangeString)).toEqual(expectedRange);
         });
-
-        it('should strip whitespace', () => {
-            const rangeString = '( 9:00     -    10: 00 , 11:00-20:15  )  ';
-
-            const expectedRange = [
-                {
-                    start: {
-                        hours: 9,
-                        minutes: 0
-                    },
-                    end: {
-                        hours: 10,
-                        minutes: 0
-                    }
-                },
-                {
-                    start: {
-                        hours: 11,
-                        minutes: 0
-                    },
-                    end: {
-                        hours: 20,
-                        minutes: 15
-                    }
-                }
-            ];
-
-            expect(adaptTimeRange(rangeString)).toEqual(expectedRange);
-        });
     });
 });

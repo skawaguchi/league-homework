@@ -31,7 +31,7 @@ function SandboxClientApp() {
 
             <h2>{'Notes on Date Formats'}</h2>
             <ul>
-                <li>{'Use 24-hour times. Am/PM is not supported'}</li>
+                <li>{'Use 24-hour times. AM/PM is not supported'}</li>
             </ul>
 
             <code>

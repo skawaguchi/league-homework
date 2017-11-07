@@ -14,8 +14,8 @@ describe('Input Adapter', () => {
     let adaptTimeRangeStub;
 
     beforeEach(() => {
-        const someStartRange = chance.word();
-        const someEndRange = chance.word();
+        const someStartRange = '9:00-10:00';
+        const someEndRange = '9:30-11:00';
 
         baseList = `(${someStartRange})`;
         subtractiveList = `(${someEndRange})`;
@@ -48,5 +48,74 @@ describe('Input Adapter', () => {
         const actualResult = adaptInput(rangeInputMock);
 
         expect(actualResult).toEqual(expectedRusult);
+    });
+
+    it('should strip whitespace', () => {
+        const someStartRange = '9  :    0 0  - 1  0 :   0  0 ';
+        const someEndRange = '9:30-11:00';
+
+        baseList = `(  ${someStartRange}  )`;
+        subtractiveList = `(${someEndRange})`;
+
+        rangeInputMock = `${baseList} "minus" ${subtractiveList}`;
+
+        const expectedResult = {
+            baseList: '(9:00-10:00)',
+            subtractiveList: '(9:30-11:00)'
+        };
+
+        adaptInput(rangeInputMock);
+
+        sinon.assert.calledWithExactly(adaptTimeRangeStub, expectedResult.baseList);
+        sinon.assert.calledWithExactly(adaptTimeRangeStub, expectedResult.subtractiveList);
+    });
+
+    describe('Given a string with no dash', () => {
+        it('should throw an error', () => {
+            baseList = '(9:0)';
+            subtractiveList = '(2:00-14:00)';
+
+            rangeInputMock = `${baseList} "minus" ${subtractiveList}`;
+
+            expect(() => adaptInput(rangeInputMock)).toThrowError();
+        });
+    });
+
+    describe('Given a string with a missing time range', () => {
+        it('should throw an error', () => {
+            baseList = '(9:00)';
+            subtractiveList = '(2:00-14:00)';
+
+            rangeInputMock = `${baseList} "minus" ${subtractiveList}`;
+
+            expect(() => adaptInput(rangeInputMock)).toThrowError();
+        });
+
+        it('should throw an error', () => {
+            baseList = '(9:00-)';
+            subtractiveList = '(2:00-14:00)';
+
+            rangeInputMock = `${baseList} "minus" ${subtractiveList}`;
+
+            expect(() => adaptInput(rangeInputMock)).toThrowError();
+        });
+    });
+
+    describe('Given a string with a missing parenthesis', () => {
+        it('should throw an error', () => {
+            baseList = '9:00-9:00)';
+            subtractiveList = '(2:00-14:00)';
+
+            rangeInputMock = `${baseList} "minus" ${subtractiveList}`;
+
+            expect(() => adaptInput(rangeInputMock)).toThrowError();
+
+            baseList = '(9:0-9:00';
+            subtractiveList = '(2:00-14:00)';
+
+            rangeInputMock = `${baseList} "minus" ${subtractiveList}`;
+
+            expect(() => adaptInput(rangeInputMock)).toThrowError();
+        });
     });
 });

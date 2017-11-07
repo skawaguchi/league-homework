@@ -43,4 +43,12 @@ describe('Acceptance Test Scenarios', () => {
             '(9:15-10:00, 10:15-11:00)'
         );
     });
+
+    describe('Error Case: Throw and Error with Invalid Input', () => {
+        it('should subtract the expected value', () => {
+            const input = '(9:00-11:00, 13:00-15:00,13:05-) "minus" (9:15-10:15)';
+
+            expect(() => parseTimeRangeInput(input)).toThrowError();
+        });
+    });
 });

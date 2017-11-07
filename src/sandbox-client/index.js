@@ -16,7 +16,7 @@ function SandboxClientApp() {
 
             <h3>{'Instructions'}</h3>
             <p>
-                {'Enter base ranges in the first input, and ranges to be subtracted in the second input. You must follow the format (items in the braces are optional):'}
+                {'Enter base ranges in the first input, and ranges to be subtracted in the second input. You may click on the Calculate button or hit Enter on your keyboard. You must follow the format (items in the braces are optional):'}
             </p>
             <p>
                 <code>{'hh:mm-hh:mm[, hh:mm-hh:mm]'}</code>

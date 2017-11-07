@@ -69,6 +69,7 @@ class SandboxClient extends Component {
                 <Inputs
                     baseRangeText={this.state.baseRangeText}
                     onBaseChanged={this.onBaseChanged}
+                    onEnterKeyPress={this.onCalculate}
                     onSubtractiveChanged={this.onSubtractiveChanged}
                     outputText={this.state.outputText}
                     subtractiveRangeText={this.state.subtractiveRangeText}

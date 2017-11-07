@@ -1,8 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
+import Chance from 'chance';
 
 import Inputs from '../../../src/sandbox-client/Inputs';
+
+const chance = new Chance();
 
 const sandbox = sinon.sandbox.create();
 
@@ -10,10 +13,22 @@ describe('<Inputs/>', () => {
     let component;
     let props;
 
+    const enterKeyCode = 13;
+
+    const getNonEnterKeyCode = () => {
+        const keyCode = chance.natural();
+
+        if (keyCode === enterKeyCode) {
+            return getNonEnterKeyCode();
+        }
+        return keyCode;
+    };
+
     const renderComponent = (propOverrides) => {
         props = Object.freeze({
             baseRangeText: 'some base range text',
             onBaseChanged: sandbox.stub(),
+            onEnterKeyPress: sandbox.stub(),
             onSubtractiveChanged: sandbox.stub(),
             outputText: 'some output text',
             subtractiveRangeText: 'some subtractive text',
@@ -104,6 +119,35 @@ describe('<Inputs/>', () => {
             });
         });
 
+        describe('when the base range gets a key press', () => {
+            describe('and it is the enter key', () => {
+                it('should call the on key pressed callback', () => {
+                    const base = component.find('.base input');
+                    const event = {
+                        keyCode: enterKeyCode
+                    };
+
+                    base.simulate('keyDown', event);
+
+                    sinon.assert.calledWithExactly(props.onEnterKeyPress);
+                });
+            });
+
+            describe('and it is not the enter key', () => {
+                it('should not call the on key pressed callback', () => {
+                    const nonEnterKeyCode = getNonEnterKeyCode();
+                    const base = component.find('.base input');
+                    const event = {
+                        keyCode: nonEnterKeyCode
+                    };
+
+                    base.simulate('keyDown', event);
+
+                    sinon.assert.notCalled(props.onEnterKeyPress);
+                });
+            });
+        });
+
         describe('when the subtractive range is changed', () => {
             it('should call the base changed callback', () => {
                 const subtractive = component.find('.subtractive input');
@@ -117,6 +161,35 @@ describe('<Inputs/>', () => {
                 subtractive.simulate('change', event);
 
                 sinon.assert.calledWithExactly(props.onSubtractiveChanged, event);
+            });
+        });
+
+        describe('when the subtractive range gets a key press', () => {
+            describe('and it is the enter key', () => {
+                it('should call the on key pressed callback', () => {
+                    const subtractive = component.find('.subtractive input');
+                    const event = {
+                        keyCode: enterKeyCode
+                    };
+
+                    subtractive.simulate('keyDown', event);
+
+                    sinon.assert.calledWithExactly(props.onEnterKeyPress);
+                });
+            });
+
+            describe('and it is not the enter key', () => {
+                it('should not call the on key pressed callback', () => {
+                    const nonEnterKeyCode = getNonEnterKeyCode();
+                    const subtractive = component.find('.subtractive input');
+                    const event = {
+                        keyCode: nonEnterKeyCode
+                    };
+
+                    subtractive.simulate('keyDown', event);
+
+                    sinon.assert.notCalled(props.onEnterKeyPress);
+                });
             });
         });
     });

@@ -87,6 +87,17 @@ describe('<SandboxClient/>', () => {
         });
     });
 
+    describe('when the base range input gets an enter key press', () => {
+        it('should update the base range text', () => {
+            const expectedInput = `(${props.defaultBaseRangeText}) "minus" (${props.defaultSubtractiveRangeText})`;
+            const inputs = component.find(Inputs);
+
+            inputs.props().onEnterKeyPress();
+
+            sinon.assert.calledWithExactly(commandStub, expectedInput);
+        });
+    });
+
     describe('when the subtractive range input is changed', () => {
         it('should update the subtractive range text', () => {
             const inputs = component.find(Inputs);

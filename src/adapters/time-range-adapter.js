@@ -1,18 +1,11 @@
-const getTime = (hours, minutess) => ({
-    hours: parseInt(hours, 10),
-    minutes: parseInt(minutess, 10)
-});
+import moment from 'moment';
 
-const parseTimeList = (time) => {
-    const hoursMinutes = time.split(':');
-
-    return getTime(hoursMinutes[0], hoursMinutes[1]);
-};
+const dateFormat = 'H:mm';
 
 const parseRangeList = (rangeList) => {
     const parsedList = rangeList
         .split('-')
-        .map(parseTimeList);
+        .map((time) => moment(time, dateFormat));
 
     return {
         start: parsedList[0],

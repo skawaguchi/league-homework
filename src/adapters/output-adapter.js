@@ -1,19 +1,9 @@
-const getUnitWithLeadingZero = (unit) => `0${unit}`.slice(-2);
-
-const getTimeString = (range) => {
-    const {
-        hours,
-        minutes
-    } = range;
-    const minutesWithLeadingZero = getUnitWithLeadingZero(minutes);
-
-    return `${hours}:${minutesWithLeadingZero}`;
-};
+const dateFormat = 'H:mm';
 
 export function adaptOutput(rangeList) {
     const convertedRange = rangeList.map((range) => {
-        const startOutput = getTimeString(range.start);
-        const endOutput = getTimeString(range.end);
+        const startOutput = range.start.format(dateFormat);
+        const endOutput = range.end.format(dateFormat);
         const rangeOutput = `${startOutput}-${endOutput}`;
 
         return `${rangeOutput}`;

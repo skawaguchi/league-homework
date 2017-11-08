@@ -1,29 +1,41 @@
+import sinon from 'sinon';
+import moment from 'moment';
+
 import { subtractTimeRanges } from '../../../src/services/subtract-time-ranges';
 
+const dateFormat = 'H:mm';
+
 describe('Subtract Time Ranges Service', () => {
-    const getTime = (hours, minutes) => ({
-        hours,
-        minutes
+    let clock;
+
+    const getTime = (hours, minutes) => moment(`${hours}:${minutes}`, dateFormat);
+
+    beforeEach(() => {
+        clock = sinon.useFakeTimers();
+    });
+
+    afterEach(() => {
+        clock.restore();
     });
 
     describe('Fully subtractive', () => {
         describe('Given a base range', () => {
             describe('and a subtractive range with the same range', () => {
                 it('should return an empty range', () => {
-                    const time = getTime(0, 0);
+                    const time = getTime('00', '00');
                     const range = {
                         start: time,
                         end: time
                     };
-                    const aRange = [
+                    const baseRange = [
                         range
                     ];
-                    const bRange = [
+                    const subtractiveRange = [
                         range
                     ];
                     const expectedOutput = [];
 
-                    const actualOutput = subtractTimeRanges(aRange, bRange);
+                    const actualOutput = subtractTimeRanges(baseRange, subtractiveRange);
 
                     expect(actualOutput).toEqual(expectedOutput);
                 });
@@ -32,12 +44,12 @@ describe('Subtract Time Ranges Service', () => {
             describe('and a subtractive range with an earlier start and an end that equals the base range', () => {
                 it('should subtract the subtractive range from the base range', () => {
                     const baseRange = {
-                        start: getTime(9, 0),
-                        end: getTime(10, 0)
+                        start: getTime('9', '00'),
+                        end: getTime('10', '00')
                     };
                     const subtractiveRange = {
-                        start: getTime(8, 0),
-                        end: getTime(10, 0)
+                        start: getTime('8', '00'),
+                        end: getTime('11', '00')
                     };
                     const aRange = [
                         baseRange
@@ -56,12 +68,12 @@ describe('Subtract Time Ranges Service', () => {
             describe('and a subtractive range with an equal start and an end that is later than the base range', () => {
                 it('should subtract the subtractive range from the base range', () => {
                     const baseRange = {
-                        start: getTime(9, 0),
-                        end: getTime(10, 0)
+                        start: getTime('9', '00'),
+                        end: getTime('10', '00')
                     };
                     const subtractiveRange = {
-                        start: getTime(9, 0),
-                        end: getTime(10, 30)
+                        start: getTime('9', '00'),
+                        end: getTime('10', '30')
                     };
                     const aRange = [
                         baseRange
@@ -85,12 +97,12 @@ describe('Subtract Time Ranges Service', () => {
                 describe('and an end that falls within the base range', () => {
                     it('should subtract the subtractive range from the base range', () => {
                         const baseRange = {
-                            start: getTime(9, 0),
-                            end: getTime(10, 0)
+                            start: getTime('9', '00'),
+                            end: getTime('10', '00')
                         };
                         const subtractiveRange = {
-                            start: getTime(8, 0),
-                            end: getTime(9, 30)
+                            start: getTime('8', '00'),
+                            end: getTime('9', '30')
                         };
                         const aRange = [
                             baseRange
@@ -100,8 +112,8 @@ describe('Subtract Time Ranges Service', () => {
                         ];
                         const expectedOutput = [
                             {
-                                start: getTime(9, 30),
-                                end: getTime(10, 0)
+                                start: getTime('9', '30'),
+                                end: getTime('10', '00')
                             }
                         ];
 
@@ -116,12 +128,12 @@ describe('Subtract Time Ranges Service', () => {
                 describe('and an end that falls within the base range', () => {
                     it('should subtract the subtractive range from the base range', () => {
                         const baseRange = {
-                            start: getTime(9, 0),
-                            end: getTime(10, 0)
+                            start: getTime('9', '00'),
+                            end: getTime('10', '00')
                         };
                         const subtractiveRange = {
-                            start: getTime(9, 0),
-                            end: getTime(9, 30)
+                            start: getTime('9', '00'),
+                            end: getTime('9', '30')
                         };
                         const aRange = [
                             baseRange
@@ -131,8 +143,8 @@ describe('Subtract Time Ranges Service', () => {
                         ];
                         const expectedOutput = [
                             {
-                                start: getTime(9, 30),
-                                end: getTime(10, 0)
+                                start: getTime('9', '30'),
+                                end: getTime('10', '00')
                             }
                         ];
 
@@ -147,12 +159,12 @@ describe('Subtract Time Ranges Service', () => {
                 describe('and an end that falls within the base range', () => {
                     it('should result in multiple outputs with the subtractive range removed from the base range', () => {
                         const baseRange = {
-                            start: getTime(9, 0),
-                            end: getTime(10, 0)
+                            start: getTime('9', '00'),
+                            end: getTime('10', '00')
                         };
                         const subtractiveRange = {
-                            start: getTime(9, 30),
-                            end: getTime(9, 45)
+                            start: getTime('9', '30'),
+                            end: getTime('9', '45')
                         };
                         const aRange = [
                             baseRange
@@ -162,12 +174,12 @@ describe('Subtract Time Ranges Service', () => {
                         ];
                         const expectedOutput = [
                             {
-                                start: getTime(9, 0),
-                                end: getTime(9, 30)
+                                start: getTime('9', '00'),
+                                end: getTime('9', '30')
                             },
                             {
-                                start: getTime(9, 45),
-                                end: getTime(10, 0)
+                                start: getTime('9', '45'),
+                                end: getTime('10', '00')
                             }
                         ];
 
@@ -180,12 +192,12 @@ describe('Subtract Time Ranges Service', () => {
                 describe('and an end that is later than the base range', () => {
                     it('should subtract the subtractive range from the base range', () => {
                         const baseRange = {
-                            start: getTime(9, 0),
-                            end: getTime(10, 0)
+                            start: getTime('9', '00'),
+                            end: getTime('10', '00')
                         };
                         const subtractiveRange = {
-                            start: getTime(9, 30),
-                            end: getTime(10, 45)
+                            start: getTime('9', '30'),
+                            end: getTime('10', '45')
                         };
                         const aRange = [
                             baseRange
@@ -195,8 +207,8 @@ describe('Subtract Time Ranges Service', () => {
                         ];
                         const expectedOutput = [
                             {
-                                start: getTime(9, 0),
-                                end: getTime(9, 30)
+                                start: getTime('9', '00'),
+                                end: getTime('9', '30')
                             }
                         ];
 
@@ -213,12 +225,12 @@ describe('Subtract Time Ranges Service', () => {
                 describe('and an end that falls within the base range', () => {
                     it('should subtract the subtractive range from the base range', () => {
                         const baseRange = {
-                            start: getTime(9, 0),
-                            end: getTime(10, 0)
+                            start: getTime('9', '00'),
+                            end: getTime('10', '00')
                         };
                         const anotherBaseRange = {
-                            start: getTime(11, 0),
-                            end: getTime(14, 0)
+                            start: getTime('11', '00'),
+                            end: getTime('14', '00')
                         };
                         const aRange = [
                             baseRange,
@@ -226,12 +238,12 @@ describe('Subtract Time Ranges Service', () => {
                         ];
 
                         const subtractiveRange = {
-                            start: getTime(8, 0),
-                            end: getTime(9, 15)
+                            start: getTime('8', '00'),
+                            end: getTime('9', '15')
                         };
                         const anotherSubtractiveRange = {
-                            start: getTime(11, 0),
-                            end: getTime(18, 0)
+                            start: getTime('11', '00'),
+                            end: getTime('18', '00')
                         };
                         const bRange = [
                             subtractiveRange,
@@ -240,8 +252,8 @@ describe('Subtract Time Ranges Service', () => {
 
                         const expectedOutput = [
                             {
-                                start: getTime(9, 15),
-                                end: getTime(10, 0)
+                                start: getTime('9', '15'),
+                                end: getTime('10', '00')
                             }
                         ];
 
@@ -254,12 +266,12 @@ describe('Subtract Time Ranges Service', () => {
                 describe('and an end that is after the base range', () => {
                     it('should subtract the subtractive range from the base range', () => {
                         const baseRange = {
-                            start: getTime(9, 0),
-                            end: getTime(10, 0)
+                            start: getTime('9', '00'),
+                            end: getTime('10', '00')
                         };
                         const anotherBaseRange = {
-                            start: getTime(11, 0),
-                            end: getTime(14, 0)
+                            start: getTime('11', '00'),
+                            end: getTime('14', '00')
                         };
                         const aRange = [
                             baseRange,
@@ -267,12 +279,12 @@ describe('Subtract Time Ranges Service', () => {
                         ];
 
                         const subtractiveRange = {
-                            start: getTime(9, 30),
-                            end: getTime(9, 45)
+                            start: getTime('9', '30'),
+                            end: getTime('9', '45')
                         };
                         const anotherSubtractiveRange = {
-                            start: getTime(10, 15),
-                            end: getTime(18, 0)
+                            start: getTime('10', '15'),
+                            end: getTime('18', '00')
                         };
                         const bRange = [
                             subtractiveRange,
@@ -281,12 +293,12 @@ describe('Subtract Time Ranges Service', () => {
 
                         const expectedOutput = [
                             {
-                                start: getTime(9, 0),
-                                end: getTime(9, 30)
+                                start: getTime('9', '00'),
+                                end: getTime('9', '30')
                             },
                             {
-                                start: getTime(9, 45),
-                                end: getTime(10, 0)
+                                start: getTime('9', '45'),
+                                end: getTime('10', '00')
                             }
                         ];
 

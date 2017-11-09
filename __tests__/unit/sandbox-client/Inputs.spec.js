@@ -68,17 +68,6 @@ describe('<Inputs/>', () => {
             });
         });
 
-        it('should have containers for the minus and equals text', () => {
-            const minus = component.find('span.minus-text');
-            const equals = component.find('span.equals-text');
-
-            expect(minus).toHaveLength(1);
-            expect(minus.text()).toEqual('"minus"');
-
-            expect(equals).toHaveLength(1);
-            expect(equals.text()).toEqual('=');
-        });
-
         it('should have a base input element', () => {
             const base = component.find('.base input');
 

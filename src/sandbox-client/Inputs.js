@@ -20,9 +20,6 @@ const Inputs = (props) => (
                 value={props.baseRangeText}
             />
         </span>
-        <span className='minus-text'>
-            {'"minus"'}
-        </span>
         <span className='subtractive'>
             <input
                 onChange={props.onSubtractiveChanged}
@@ -31,9 +28,6 @@ const Inputs = (props) => (
                 type='text'
                 value={props.subtractiveRangeText}
             />
-        </span>
-        <span className='equals-text'>
-            {'='}
         </span>
         <span className='output'>
             <input

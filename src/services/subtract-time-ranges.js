@@ -8,6 +8,9 @@ const subEndsBeforeBase = (base, sub) => base.end > sub.end;
 
 const subEndsWithinBase = (base, sub) => base.end > sub.end && base.start < sub.end;
 
+const sortRange = (range) =>
+    range.sort((a, b) => a.start > b.start);
+
 const processSubStartsBeforeEqualsBase = (candidateRanges, candidate, sub, i) => {
     if (subEndsWithinBase(candidate, sub)) {
         candidate.start = sub.end;
@@ -31,11 +34,8 @@ const processSubStartAfterBase = (candidateRanges, candidate, sub) => {
     }
 };
 
-const sortRange = (range) =>
-    range.sort((a, b) => a.start > b.start);
-
 export function subtractTimeRanges(baseRanges, subtractiveRanges) {
-    const candidateRanges = baseRanges.slice(0);
+    const candidateRanges = sortRange(baseRanges.slice(0));
 
     for (let i = 0; i < candidateRanges.length; i++) {
         const candidate = candidateRanges[i];
@@ -58,5 +58,5 @@ export function subtractTimeRanges(baseRanges, subtractiveRanges) {
         });
     }
 
-    return sortRange(candidateRanges);
+    return candidateRanges;
 }

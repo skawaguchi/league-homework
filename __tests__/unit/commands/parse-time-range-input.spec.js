@@ -5,6 +5,7 @@ import { parseTimeRangeInput } from '../../../src/commands/parse-time-range-inpu
 
 import * as inputAdapter from '../../../src/adapters/input-adapter';
 import * as timeRangeSubtractor from '../../../src/services/subtract-time-ranges';
+import * as timeRangeCombiner from '../../../src/services/combine-time-ranges';
 import * as outputAdapter from '../../../src/adapters/output-adapter';
 
 const sandbox = sinon.sandbox.create();
@@ -12,11 +13,13 @@ const chance = new Chance();
 
 describe('Time Range Parser', () => {
     let adaptInputStub;
+    let timeRangeCombinerStub;
     let timeRangeSubtractorStub;
     let adaptOuputStub;
 
     beforeEach(() => {
         adaptInputStub = sandbox.stub(inputAdapter, 'adaptInput');
+        timeRangeCombinerStub = sandbox.stub(timeRangeCombiner, 'combineTimeRanges');
         timeRangeSubtractorStub = sandbox.stub(timeRangeSubtractor, 'subtractTimeRanges');
         adaptOuputStub = sandbox.stub(outputAdapter, 'adaptOutput');
     });
@@ -32,10 +35,12 @@ describe('Time Range Parser', () => {
                 baseList: chance.word(),
                 subtractiveList: chance.word()
             };
+            const timeRangeCombinerResponseMock = chance.word();
             const timeRangeSubtractorResponseMock = chance.word();
 
             adaptInputStub.returns(timeRangeResponseMock);
             timeRangeSubtractorStub.returns(timeRangeSubtractorResponseMock);
+            timeRangeCombinerStub.returns(timeRangeCombinerResponseMock);
 
             const outputMock = chance.word();
 
@@ -49,7 +54,8 @@ describe('Time Range Parser', () => {
                 timeRangeResponseMock.baseList,
                 timeRangeResponseMock.subtractiveList
             );
-            sinon.assert.calledWithExactly(adaptOuputStub, timeRangeSubtractorResponseMock);
+            sinon.assert.calledWithExactly(timeRangeCombinerStub, timeRangeSubtractorResponseMock);
+            sinon.assert.calledWithExactly(adaptOuputStub, timeRangeCombinerResponseMock);
 
             expect(actualResult).toEqual(outputMock);
         });

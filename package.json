@@ -78,7 +78,7 @@
         "start": "webpack-dev-server --config ./webpack.sandbox-client.config.js --progress --colors --open",
         "test": "yarn test:watch",
         "test:once": "jest --coverage",
-        "test:watch": "jest --watch --coverage",
+        "test:watch": "jest --watch --coverage --onlyChanged",
         "test:watch-no-cov": "jest --watch",
         "verify": "yarn eslint && yarn test:once"
     },

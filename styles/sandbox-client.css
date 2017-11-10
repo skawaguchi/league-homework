@@ -75,6 +75,10 @@ button:hover {
     padding-top: 10px;
 }
 
+.output.errors input {
+    color: red;
+}
+
 .output input {
     border-width: 0;
 }
@@ -90,10 +94,6 @@ button:hover {
 .base::after,
 .subtractive::after {
     content: ")"
-}
-
-.errors {
-    color: red;
 }
 
 .sandbox-client {

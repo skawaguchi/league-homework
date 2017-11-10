@@ -14,8 +14,6 @@ function SandboxClientApp() {
             <p>
                 <code>{'hh:mm-hh:mm'}</code>
             </p>
-            <p>{'Hit Enter on any field, or click Calculate to run the subtractive function.'}
-            </p>
 
             <SandboxClient
                 defaultBaseRangeText={'9:00-11:00, 13:00-15:00'}

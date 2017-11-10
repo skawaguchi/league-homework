@@ -27,8 +27,8 @@ describe('<Inputs/>', () => {
     const renderComponent = (propOverrides) => {
         props = Object.freeze({
             baseRangeText: 'some base range text',
+            hasErrors: false,
             onBaseChanged: sandbox.stub(),
-            onEnterKeyPress: sandbox.stub(),
             onSubtractiveChanged: sandbox.stub(),
             outputText: 'some output text',
             subtractiveRangeText: 'some subtractive text',
@@ -38,15 +38,15 @@ describe('<Inputs/>', () => {
         component = shallow(<Inputs {...props}/>);
     };
 
-    beforeEach(() => {
-        renderComponent();
-    });
-
     afterEach(() => {
         sandbox.restore();
     });
 
     describe('Given the component renders', () => {
+        beforeEach(() => {
+            renderComponent();
+        });
+
         it('should render the component with an identifying class name', () => {
             expect(component.hasClass('input-container')).toBe(true);
         });
@@ -90,6 +90,7 @@ describe('<Inputs/>', () => {
             expect(output.props().readOnly).toEqual('readOnly');
             expect(output.props().type).toEqual('text');
             expect(output.props().value).toEqual(props.outputText);
+            expect(output.hasClass('errors')).toBe(false);
         });
 
         describe('when the base range is changed', () => {
@@ -108,35 +109,6 @@ describe('<Inputs/>', () => {
             });
         });
 
-        describe('when the base range gets a key press', () => {
-            describe('and it is the enter key', () => {
-                it('should call the on key pressed callback', () => {
-                    const base = component.find('.base input');
-                    const event = {
-                        keyCode: enterKeyCode
-                    };
-
-                    base.simulate('keyDown', event);
-
-                    sinon.assert.calledWithExactly(props.onEnterKeyPress);
-                });
-            });
-
-            describe('and it is not the enter key', () => {
-                it('should not call the on key pressed callback', () => {
-                    const nonEnterKeyCode = getNonEnterKeyCode();
-                    const base = component.find('.base input');
-                    const event = {
-                        keyCode: nonEnterKeyCode
-                    };
-
-                    base.simulate('keyDown', event);
-
-                    sinon.assert.notCalled(props.onEnterKeyPress);
-                });
-            });
-        });
-
         describe('when the subtractive range is changed', () => {
             it('should call the base changed callback', () => {
                 const subtractive = component.find('.subtractive input');
@@ -152,34 +124,17 @@ describe('<Inputs/>', () => {
                 sinon.assert.calledWithExactly(props.onSubtractiveChanged, event);
             });
         });
+    });
 
-        describe('when the subtractive range gets a key press', () => {
-            describe('and it is the enter key', () => {
-                it('should call the on key pressed callback', () => {
-                    const subtractive = component.find('.subtractive input');
-                    const event = {
-                        keyCode: enterKeyCode
-                    };
-
-                    subtractive.simulate('keyDown', event);
-
-                    sinon.assert.calledWithExactly(props.onEnterKeyPress);
-                });
+    describe('Given there are errors', () => {
+        it('should change the output to indicate an error', () => {
+            renderComponent({
+                hasErrors: true
             });
 
-            describe('and it is not the enter key', () => {
-                it('should not call the on key pressed callback', () => {
-                    const nonEnterKeyCode = getNonEnterKeyCode();
-                    const subtractive = component.find('.subtractive input');
-                    const event = {
-                        keyCode: nonEnterKeyCode
-                    };
+            const output = component.find('.output');
 
-                    subtractive.simulate('keyDown', event);
-
-                    sinon.assert.notCalled(props.onEnterKeyPress);
-                });
-            });
+            expect(output.hasClass('errors')).toBe(true);
         });
     });
 });

@@ -2,7 +2,7 @@ import { adaptTimeRange } from './time-range-adapter';
 
 const isValidInput = (input) => {
     /* Pars should be extracted to make it easier to read */
-    const validationRegEx = /^\(((?:([01]?\d|2[0-3]):)?([0-5]?\d)?-(?:([01]?\d|2[0-3]):)?([0-5]?\d))+((,)*(?:(([01]?\d|2[0-3]):)?([0-5]?\d)?-(?:([01]?\d|2[0-3]):)?([0-5]?\d)))*\)$/g;
+    const validationRegEx = /^\((([01]?\d|2[0-3])?:([0-5]?\d)-([01]?\d|2[0-3])?:([0-5]?\d))+(,*([01]?\d|2[0-3])?:([0-5]?\d)?-([01]?\d|2[0-3])?:([0-5]?\d))*\)$/g;
 
     return input.match(validationRegEx) !== null;
 };

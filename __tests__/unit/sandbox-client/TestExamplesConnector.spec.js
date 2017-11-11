@@ -49,12 +49,12 @@ describe('TestExamplesConnector', () => {
         it('should bind an action to apply the test example', () => {
             renderComponent();
 
-            const baseText = 'base text';
-            const subtractiveText = 'subtractive text';
+            const baseRangeText = 'base text';
+            const subtractiveRangeText = 'subtractive text';
 
-            component.props().onExampleSelected(baseText, subtractiveText);
+            component.props().onExampleSelected(baseRangeText, subtractiveRangeText);
 
-            expect(testExampleActions.applyTestExample).toBeCalledWith(baseText, subtractiveText);
+            expect(testExampleActions.applyTestExample).toBeCalledWith(baseRangeText, subtractiveRangeText);
         });
     });
 });

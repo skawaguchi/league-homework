@@ -20,10 +20,7 @@ function SandboxApp() {
                         <code>{'hh:mm-hh:mm'}</code>
                     </p>
                 </section>
-                <SandboxClientConnector
-                    defaultBaseRangeText={'9:00-11:00, 13:00-15:00'}
-                    defaultSubtractiveRangeText={'9:00-9:15, 10:00-10:15, 12:30-16:00'}
-                />
+                <SandboxClientConnector/>
                 <TestExamplesConnector/>
             </main>
         </StoreProvider>

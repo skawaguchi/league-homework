@@ -5,8 +5,8 @@ import { applyTestExample } from '../actions/test-examples';
 
 function mapDispatchToProps(dispatch) {
     return {
-        onExampleSelected: (baseText, subtractiveText) => {
-            dispatch(applyTestExample(baseText, subtractiveText));
+        onExampleSelected: (baseRangeText, subtractiveRangeText) => {
+            dispatch(applyTestExample(baseRangeText, subtractiveRangeText));
         }
     };
 }

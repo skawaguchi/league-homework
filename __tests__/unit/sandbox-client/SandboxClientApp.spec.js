@@ -67,8 +67,6 @@ describe('<SandboxClientApp/>', () => {
             const sandboxClient = component.find(SandboxClientConnector);
 
             expect(sandboxClient.length).toBe(1);
-            expect(sandboxClient.props().defaultBaseRangeText).toEqual(expect.any(String));
-            expect(sandboxClient.props().defaultSubtractiveRangeText).toEqual(expect.any(String));
         });
 
         it('should have a test examples component', () => {

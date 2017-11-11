@@ -12,26 +12,18 @@ describe('Store Factory', () => {
     });
 
     describe('createStore', () => {
-        const composeMock = {};
         const storeMock = {};
         const reducersMock = {};
         const middlewareMock = {};
         const extensionsMock = {};
         /* eslint-disable no-underscore-dangle */
-        global.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ = sandbox.stub();
-        global.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__.returns(extensionsMock);
-
         let applyMiddlewareStub;
-        let composeeStub;
         let createStoreStub;
         let combineReducersStub;
 
         beforeEach(() => {
             createStoreStub = sandbox.stub(reduxMethods, 'createStore');
             createStoreStub.returns(storeMock);
-
-            composeeStub = sandbox.stub(reduxMethods, 'compose');
-            composeeStub.returns(composeMock);
 
             combineReducersStub = sandbox.stub(reduxMethods, 'combineReducers');
             combineReducersStub.returns(reducersMock);
@@ -44,10 +36,6 @@ describe('Store Factory', () => {
             makeStore();
 
             sinon.assert.calledWithExactly(combineReducersStub, reducers);
-            sinon.assert.calledWithExactly(
-                global.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__,
-                middlewareMock
-            );
         });
 
         it('should create the store with redux dev tools extensions', () => {
@@ -56,14 +44,6 @@ describe('Store Factory', () => {
             sinon.assert.calledWithExactly(createStoreStub, reducersMock, extensionsMock);
 
             expect(store).toBe(storeMock);
-        });
-
-        it('should use compose as a fallback', () => {
-            global.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ = null;
-
-            makeStore();
-
-            sinon.assert.calledWithExactly(composeeStub, middlewareMock);
         });
     });
 });

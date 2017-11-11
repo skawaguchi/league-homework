@@ -13,19 +13,16 @@ describe('Store Factory', () => {
 
     describe('createStore', () => {
         const storeMock = {};
-        const enhancerMock = {};
         const reducersMock = {};
+        const extensionsMock = {};
         /* eslint-disable no-underscore-dangle */
-        global.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ = {};
+        global.__REDUX_DEVTOOLS_EXTENSION__ = sandbox.stub();
+        global.__REDUX_DEVTOOLS_EXTENSION__.returns(extensionsMock);
 
-        let applyMiddlewareStub;
         let createStoreStub;
         let combineReducersStub;
 
         beforeEach(() => {
-            applyMiddlewareStub = sandbox.stub(reduxMethods, 'applyMiddleware');
-            applyMiddlewareStub.returns(enhancerMock);
-
             createStoreStub = sandbox.stub(reduxMethods, 'createStore');
             createStoreStub.returns(storeMock);
 
@@ -39,21 +36,12 @@ describe('Store Factory', () => {
             sinon.assert.calledWithExactly(combineReducersStub, reducers);
         });
 
-        it('should create the store', () => {
+        it('should create the store with redux dev tools extensions', () => {
             const store = makeStore();
 
-            sinon.assert.calledWithExactly(createStoreStub, reducersMock, enhancerMock);
+            sinon.assert.calledWithExactly(createStoreStub, reducersMock, extensionsMock);
 
             expect(store).toBe(storeMock);
-        });
-
-        it('should apply the redux dev tools middleware', () => {
-            makeStore();
-
-            sinon.assert.calledWithExactly(
-                applyMiddlewareStub,
-                global.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-            );
         });
     });
 });

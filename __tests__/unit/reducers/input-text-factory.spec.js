@@ -1,5 +1,8 @@
 import Chance from 'chance';
-import { UPDATE_TEXT } from '../../../src/actions/list';
+import {
+    APPLY_TEST_EXAMPLE,
+    UPDATE_TEXT
+} from '../../../src/actions/list';
 import { makeReducer } from '../../../src/reducers/input-text-factory';
 
 const chance = new Chance();
@@ -56,5 +59,19 @@ describe('Text Input Reducer', () => {
         reducedState = reducer(initialState, actionMock);
 
         expect(reducedState).toBe(initialState);
+    });
+
+    it('should apply the example text', () => {
+        const textMock = 'some text';
+        actionMock = {
+            payload: {
+                [target]: textMock
+            },
+            type: APPLY_TEST_EXAMPLE
+        };
+
+        reducedState = reducer(initialState, actionMock);
+
+        expect(reducedState).toBe(textMock);
     });
 });

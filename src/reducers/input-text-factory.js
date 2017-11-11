@@ -1,4 +1,9 @@
-import { UPDATE_TEXT } from '../actions/list';
+import {
+    APPLY_TEST_EXAMPLE,
+    UPDATE_TEXT
+} from '../actions/list';
+
+const applyTestExample = (target, state, action) => action.payload[target];
 
 const updateText = (target, state, action) => {
     if (action.payload.target === target) {
@@ -9,6 +14,7 @@ const updateText = (target, state, action) => {
 
 function buildReducer(target, state = '', action) {
     const actionHandlers = {
+        [APPLY_TEST_EXAMPLE]: applyTestExample,
         [UPDATE_TEXT]: updateText
     };
 

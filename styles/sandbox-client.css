@@ -32,7 +32,7 @@ button {
     color: #FFFFFF;
     cursor: pointer;
     display: block;
-    font-size: 1.2rem;
+    font-size: 0.65rem;
     font-weight: bold;
     padding: 5px 20px 8px 20px;
 }
@@ -103,11 +103,23 @@ button:hover {
     padding: 10px 30px 20px 30px;
 }
 
-.example-ranges {
+.test-examples {
     list-style: none;
     padding-left: 0;
 }
 
-.example-ranges code {
+.test-examples code {
     font-size: 0.85rem;
+    margin-left: 10px;
+}
+
+.test-examples ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.test-examples li {
+    align-items: center;
+    display: flex;
+    margin-bottom: 10px;
 }

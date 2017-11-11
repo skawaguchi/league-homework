@@ -11,7 +11,7 @@ function SandboxApp() {
 
     return (
         <StoreProvider store={store}>
-            <main className='sandbox-client'>
+            <main className='sandbox-client-app'>
                 <h1>{'Time Range Parser'}</h1>
                 <section className='instructions'>
                     <p>{'This tool allows you to subtract time ranges from a set of time ranges. Simply enter dates in either of the first two inputs. You may only use 24-hour formatting. Follow this input format. For multiple ranges, separate your ranges with a comma.'}

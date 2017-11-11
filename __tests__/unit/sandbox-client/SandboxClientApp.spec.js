@@ -48,7 +48,7 @@ describe('<SandboxClientApp/>', () => {
             const mainContainer = component.find('main');
 
             expect(mainContainer.type()).toEqual('main');
-            expect(mainContainer.hasClass('sandbox-client')).toEqual(true);
+            expect(mainContainer.hasClass('sandbox-client-app')).toEqual(true);
         });
 
         it('should have a page title', () => {

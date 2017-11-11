@@ -6,6 +6,9 @@
         "airbnb-base",
         "plugin:react/recommended"
     ],
+    "globals": {
+        "window": true
+    },
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true

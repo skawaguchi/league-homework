@@ -4,6 +4,7 @@ import {
 } from 'redux';
 import * as reducers from '../reducers/index';
 
+/* eslint-disable no-underscore-dangle */
 export function makeStore() {
     const combinedReducers = combineReducers(reducers);
 

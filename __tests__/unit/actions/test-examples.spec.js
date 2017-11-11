@@ -5,13 +5,13 @@ import * as actions from '../../../src/actions/test-examples';
 describe('Test Example Actions', () => {
     describe('When a test example is applied', () => {
         it('should dispatch the example base text and subtractive text', () => {
-            const baseText = 'base text';
-            const subtractiveText = 'subtractive text';
-            const action = actions.applyTestExample(baseText, subtractiveText);
+            const baseRangeText = 'base text';
+            const subtractiveRangeText = 'subtractive text';
+            const action = actions.applyTestExample(baseRangeText, subtractiveRangeText);
 
             expect(action.type).toBe(APPLY_TEST_EXAMPLE);
-            expect(action.payload.baseRangeText).toBe(baseText);
-            expect(action.payload.subtractiveRangeText).toBe(subtractiveText);
+            expect(action.payload.baseRangeText).toBe(baseRangeText);
+            expect(action.payload.subtractiveRangeText).toBe(subtractiveRangeText);
         });
     });
 });

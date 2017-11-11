@@ -1,4 +1,2 @@
-import { makeReducer } from './input-text-factory';
-
-export const baseRangeText = makeReducer('baseRangeText');
-export const subtractiveRangeText = makeReducer('subtractiveRangeText');
+export { default as calculatedTextReducer } from './calculated-text';
+export { default as hasErrorsReducer } from './has-errors';

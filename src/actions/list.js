@@ -1,2 +1,3 @@
 export const APPLY_TEST_EXAMPLE = 'APPLY_TEST_EXAMPLE';
+export const UPDATE_ERROR = 'UPDATE_ERROR';
 export const UPDATE_TEXT = 'UPDATE_TEXT';

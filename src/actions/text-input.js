@@ -18,42 +18,43 @@ const testTextFromPayload = (state, targetAttr, target, text) => {
     return targetText;
 };
 
+const dispatchAction = (dispatch, type, payload) => {
+    const {
+        baseRangeText,
+        subtractiveRangeText,
+        outputText
+    } = payload;
+
+    dispatch({
+        payload: {
+            baseRangeText,
+            subtractiveRangeText,
+            outputText
+        },
+        type
+    });
+};
+
 export function updateText(target, text) {
     return (dispatch, getState) => {
         const state = getState();
 
-        const baseRangeText = testTextFromPayload(
-            state,
-            'baseRangeText',
-            target,
-            text
-        );
-        const subtractiveRangeText = testTextFromPayload(
-            state,
-            'subtractiveRangeText',
-            target,
-            text
-        );
+        const baseRangeText = testTextFromPayload(state, 'baseRangeText', target, text);
+        const subtractiveRangeText = testTextFromPayload(state, 'subtractiveRangeText', target, text);
 
         try {
             const outputText = getOutputText(baseRangeText, subtractiveRangeText);
 
-            dispatch({
-                payload: {
-                    baseRangeText,
-                    subtractiveRangeText,
-                    outputText
-                },
-                type: UPDATE_TEXT
+            dispatchAction(dispatch, UPDATE_TEXT, {
+                baseRangeText,
+                subtractiveRangeText,
+                outputText
             });
         } catch (error) {
-            dispatch({
-                payload: {
-                    baseRangeText,
-                    subtractiveRangeText,
-                    outputText: error.message
-                },
-                type: UPDATE_TEXT_ERROR
+            dispatchAction(dispatch, UPDATE_TEXT_ERROR, {
+                baseRangeText,
+                subtractiveRangeText,
+                outputText: error.message
             });
         }
     };

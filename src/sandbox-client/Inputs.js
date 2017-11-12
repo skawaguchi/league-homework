@@ -11,27 +11,19 @@ const getInput = (onChange, placeholder, value) => (
 );
 const Inputs = (props) => {
     const errorClass = props.hasErrors ? 'errors' : '';
-    const baseRangePlaceholder = 'Enter base time range(s)';
-    const subtractiveRangePlaceholder = 'Enter time range(s) to subtract from your base range(s)';
+    const basePlaceholder = 'Enter base time range(s)';
+    const subtractivePlaceholder = 'Enter time range(s) to subtract from your base range(s)';
 
     return (
         <p className='input-container'>
             <span className='base'>
                 {
-                    getInput(
-                        props.onBaseChanged,
-                        baseRangePlaceholder,
-                        props.baseRangeText
-                    )
+                    getInput(props.onBaseChanged, basePlaceholder, props.baseRangeText)
                 }
             </span>
             <span className='subtractive'>
                 {
-                    getInput(
-                        props.onSubtractiveChanged,
-                        subtractiveRangePlaceholder,
-                        props.subtractiveRangeText
-                    )
+                    getInput(props.onSubtractiveChanged, subtractivePlaceholder, props.subtractiveRangeText)
                 }
             </span>
             <span className={`output ${errorClass}`}>

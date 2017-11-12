@@ -1,8 +1,10 @@
 import { adaptTimeRange } from './time-range-adapter';
 
 const isValidInput = (input) => {
-    /* Pars should be extracted to make it easier to read */
+    /* Vars should be extracted to make it easier to read */
+    /* eslint-disable max-len */
     const validationRegEx = /^\((([01]?\d|2[0-3])?:([0-5]?\d)-([01]?\d|2[0-3])?:([0-5]?\d))+(,*([01]?\d|2[0-3])?:([0-5]?\d)?-([01]?\d|2[0-3])?:([0-5]?\d))*\)$/g;
+    /* eslint-enable */
 
     return input.match(validationRegEx) !== null;
 };

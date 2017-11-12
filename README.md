@@ -22,6 +22,9 @@ Run `nvm use` to use the correct version of Node for this application.
 
 Run `yarn` to install the project dependencies.
 
+## Playing with the Application
+Run `yarn start` and a React application will start to play with the application. 
+
 ## Testing the Application
 Run `yarn test` to run tests in watch mode for active development.
 
@@ -33,8 +36,6 @@ Run `yarn verify` to lint and test your files.
 
 **Note:** `yarn verify` runs on `git push`.
 
-## Playing with the Application
-Run `yarn start` and a React application will start to play with the application. 
 
 ## Publishing the Application
 **Note:** The application was originally created with the idea to export it as a module, but after creating the React application, this seems unnecessary. I left it in here in you case you wanted it for some reason.

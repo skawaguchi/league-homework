@@ -8,12 +8,13 @@ These are the highlights behind this solution:
 - Used this mini-project to try out development with the latest React, Redux, Babel, Webpack, ESLint, Enzyme, and Sinon.
 - Deeper dive into using Jest ()but avoided mocking in it where possible).
 - Used Chance.js for automated [fuzzing](http://searchsecurity.techtarget.com/definition/fuzz-testing).
-- Committed to Github as I would a real project so the reviewer could get a sense of my commit style (semantic git comments, attempted cohesion, mostly working patch commits, etc.).
+- Committed to Github as I would a real project so the reviewer could get a sense of my commit style (semantic git comments, attempted cohesion, mostly working patch commits, etc.). 
+- I did this to show some authenticity to my efforts. It was also frankly really nice to have an isolated coding problem to solve and have fun with.
 
 ## Prerequisites to Run the Application
 This application prefers that you have `yarn` installed. If not, see the [installation instructions](https://yarnpkg.com/en/docs/install).You may also use normal `npm install`, which is bundled with node, but the app was developed with `yarn` in mind.
 
-This application is developed using Node 6.11.x. To switch between versions you're best off using `nvm`. It should run fine on other versions, but it's better to match the one this was developed on.
+This application was developed using Node 6.11.1 on Mac OS. I haven't tested this on a Windows machine, so I'm not sure it'll run properly there. To switch between versions you're best off using [`nvm`](https://github.com/creationix/nvm). It _should_ run fine on other versions, but you never know so if you can, please try to replicate the environment.
 
 ## Installing the Application
 Run `nvm use` to use the correct version of Node for this application.
@@ -45,30 +46,30 @@ Run `yarn dis:prod` to output a production version of the application.
 I've tried to capture my thought process for insight into my ways of working.
 
 ## Summary
-Overall, I hope that this gives insight into how I think and work. My git commits, which you can view if you'd like (just ask me) to get a sense of my workflow, are pretty representative of how I work. It was tough doing this off-hours on a busy weekend, but at least it's an approximation of how I work so I hope that you see some value in this approach. 
+Overall, I hope that this project gives insight into how I think and work. I understand that my style of programming may not appeal to all. After working for years going with the fastest solution, I've come to the conclusion that I'd rather be methodical and save future headaches, and so far TDD is the best fit for that philosophy. It probably has to do with my predominantly enterprise experience where scalability and extensibility are inevitable.
 
-I understand that my style of programming may not appeal to all. After working for years trying to find the fast solution, I've come to the conclusion that I'd rather be methodical and approach my work as a craftsman, and so far TDD is the best for that philosophy. It probably has to do with my mostly enterprise experience for the past six years where scalability and extensibility are inevitable. I hope that bias won't be held against me. 
+All that said, I'm open to other viewpoints, and am always eager to discuss them! I'm not naive or stubborn enough to think that this is the only way to build software. 
 
-All that said, I'm open to other viewpoints, and am always eager to discuss them. I'm not naive or stubborn enough to think that this is the only way to code, after all. If you've made it this far, thanks for your attention and the opportunity to share my thoughts and philosophies. 
+If you've made it this far through my ramblings, thanks for your attention and the opportunity to share my thoughts and philosophies. 
 
 ## Assumptions
 These are boundary conditions that I would usually ask about before doing the exercise. What I'll do is to list them out and pretend that they were answered.
-1. Will the terminal value of a given range ever be before the start value? Assuming 'no'.
-2. Will there ever be whitespace between the parentheses and the range values? Assuming 'no'.
-3. Will there always be a `:` separating hours and minutes, and a `-` separating the start and terminal values of each range? Assuming 'yes'.
-4. Will this ever need to be adjusted for timezone? Assuming 'no', but may use moment.
-5. Is using a 24-hour clock ok? Assuming 'yes' since that's the example.
-6. Will there every be overlaps in A or B? For example, would I get `(9:00-11:00, 10:00-12:00) "minus" (19:00-20:00, 19:30-21:355)` where the base times are overlapping? Assuming 'no' 
-7. Do we add leading zeroes in? Assuming 'no' since that's what's in the examples (missed this).
-8. Were the `"` and `"` characters around `minus` intentional, or can I just use `"`? Assuming 'yes' and that the proper quotes were not a trick.
-9: Do I need to sort the output? Assuming 'no'.
-10. Do I need to check the output for overlapping ranges and do a union on them? Assuming 'no'.
+1. Will the terminal value of a given range ever be before the start value? **Assuming 'no'.**
+2. Will there ever be whitespace between the parentheses and the range values? **Assuming 'no'.**
+3. Will there always be a `:` separating hours and minutes, and a `-` separating the start and terminal values of each range? **Assuming 'yes'.**
+4. Will this ever need to be adjusted for timezone? **Assuming 'no', but may use `moment`.**
+5. Is using a 24-hour clock ok? **Assuming 'yes' since that's the example.**
+6. Will there every be overlaps in A or B? For example, would I get `(9:00-11:00, 10:00-12:00) "minus" (19:00-20:00, 19:30-21:355)` where the base times are overlapping? **Assuming 'no' **
+7. Do we add leading zeroes in? **Assuming 'no' since that's what's in the examples (missed this).**
+8. Were the `"` and `"` characters around `minus` intentional, or can I just use `"`? **Assuming 'yes' and that the proper quotes were not a trick.**
+9: Do I need to sort the output? **Assuming 'no'.**
+10. Do I need to check the output for overlapping ranges and do a union on them? **Assuming 'no'.**
 
 ## Defensive Programming
-These are things I'd consider doing, but won't in the interest of getting this challenge done. I just want to make it clear that these are factors I'd consider.
-1. Validate structure of a given range with a regex.
-2. Check input type before processing.
-3. Empty string or other falsey values.
+~~These are things I'd consider doing, but won't in the interest of getting this challenge done. I just want to make it clear that these are factors I'd consider.~~ Went ahead and did all of this. Disclaimer: my regex abilities aren't great, so if you read it, please accept my apologies.
+1. ~~Validate structure of a given range with a regex.~~
+2. ~~Check input type before processing.~~
+3. ~~Empty string or other falsey values.~~
 
 ## Original Thought Process for the Solution
 I'm not an algorithm master by any means. I researched the solution to this challenge by reading the following:
@@ -85,7 +86,7 @@ This led me to thinking along these lines:
 6. It's looking like Big-O `O(A * B)` is unavoidable. It's not bad.
 7. A React interface to test the application live.
 8. After struggling a bit with combining arrays, though about an Interval Tree. Honestly, probably should've done this from the beginning, but to demo TDD I thought I'd start with the most basic solution and work my way up. Now I feel like I've invested too much time in this. In real life, I would be happy to do this. So I've missed the opportunity for two data structures: Interval Tree and State pattern. 
-9. I realized I hadn't coded a Redux app from scratch for a really long time. I decided to use this project as a refresher. I had forgotten all of the boilerplate and the pain of converting from React components using internal state to Redux. The process has reminded me why Redux is so nice.
+9. I realized I hadn't coded a Redux app from scratch for a really long time. I decided to use this project as a refresher. I had forgotten all of the boilerplate and the pain of converting from React components using internal state to Redux. _However_, the process actually has reminded me why Redux is so nice, and gave me a bit of a deeper insight into where and when you calculate data and how to logically deal with the results. 
 
 # Original Coding problem
 Write a program that will subtract one list of time ranges from another. Formally: for two

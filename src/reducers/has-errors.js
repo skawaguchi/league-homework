@@ -1,15 +1,17 @@
 import {
+    APPLY_TEST_EXAMPLE,
     UPDATE_TEXT,
     UPDATE_TEXT_ERROR
 } from '../actions/list';
 
-const updateText = () => false;
-const updateTextError = () => true;
+const hideError = () => false;
+const showError = () => true;
 
 export default function (state = false, action) {
     const actionHandlers = {
-        [UPDATE_TEXT]: updateText,
-        [UPDATE_TEXT_ERROR]: updateTextError
+        [APPLY_TEST_EXAMPLE]: hideError,
+        [UPDATE_TEXT]: hideError,
+        [UPDATE_TEXT_ERROR]: showError
     };
 
     const reducer = actionHandlers[action.type];

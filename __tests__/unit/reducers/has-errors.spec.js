@@ -1,4 +1,5 @@
 import {
+    APPLY_TEST_EXAMPLE,
     UPDATE_TEXT,
     UPDATE_TEXT_ERROR
 } from '../../../src/actions/list';
@@ -28,9 +29,21 @@ describe('Errors Reducer', () => {
     });
 
     describe('Given valid text', () => {
-        it('should not an error', () => {
+        it('should not show an error', () => {
             actionMock = {
                 type: UPDATE_TEXT
+            };
+
+            reducedState = reducer(initialState, actionMock);
+
+            expect(reducedState).toEqual(false);
+        });
+    });
+
+    describe('Given an applied example', () => {
+        it('should not show an error', () => {
+            actionMock = {
+                type: APPLY_TEST_EXAMPLE
             };
 
             reducedState = reducer(initialState, actionMock);

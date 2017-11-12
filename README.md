@@ -8,6 +8,7 @@ These are the highlights behind this solution:
 - Used this mini-project to try out development with the latest React, Redux, Babel, Webpack, ESLint, Enzyme, and Sinon.
 - Deeper dive into using Jest ()but avoided mocking in it where possible).
 - Used Chance.js for automated [fuzzing](http://searchsecurity.techtarget.com/definition/fuzz-testing).
+- Checked code quality using [Code Climate](https://codeclimate.com) to get an A rating for 'Maintainability'. One interesting thing to note is that the 38hrs of reported debt took about 30 minutes to address. I'll chalk that one up to TDD. Note that I excluded test code from these metrics.
 - Committed to Github as I would a real project so the reviewer could get a sense of my commit style (semantic git comments, attempted cohesion, mostly working patch commits, etc.). 
 - I did this to show some authenticity to my efforts. It was also frankly really nice to have an isolated coding problem to solve and have fun with.
 

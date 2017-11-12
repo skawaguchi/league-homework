@@ -1,14 +1,15 @@
 import {
-    UPDATE_ERROR
+    UPDATE_TEXT,
+    UPDATE_TEXT_ERROR
 } from '../actions/list';
 
-const updateError = (state, action) => {
-    return action.payload;
-};
+const updateText = () => false;
+const updateTextError = () => true;
 
 export default function (state = false, action) {
     const actionHandlers = {
-        [UPDATE_ERROR]: updateError
+        [UPDATE_TEXT]: updateText,
+        [UPDATE_TEXT_ERROR]: updateTextError
     };
 
     const reducer = actionHandlers[action.type];

@@ -1,23 +1,20 @@
-import Chance from 'chance';
 import sinon from 'sinon';
 import {
     APPLY_TEST_EXAMPLE,
-    CALCULATE,
-    UPDATE_TEXT
+    UPDATE_TEXT,
+    UPDATE_TEXT_ERROR
 } from '../../../src/actions/list';
 import reducer from '../../../src/reducers/calculated-text';
 
 import { testRanges } from '../../../src/state/constants';
 import * as commands from '../../../src/commands/parse-time-range-input';
 
-const chance = new Chance();
 const sandbox = sinon.sandbox.create();
 
 describe('Calculated Text Reducer', () => {
     let actionMock;
     let initialState;
     let firstInput;
-    let reducedState;
     let commandStub;
     let commandResultMock;
 
@@ -36,108 +33,162 @@ describe('Calculated Text Reducer', () => {
         };
 
         commandStub = sandbox.stub(commands, 'parseTimeRangeInput');
-        commandStub.returns(commandResultMock);
     });
 
     afterEach(() => {
         sandbox.restore();
     });
 
-    it('should return the default state if the provided state is undefined', () => {
-        reducedState = reducer(undefined, {});
-
-        expect(reducedState).toEqual(initialState);
-
-        sinon.assert.calledWithExactly(commandStub, firstInput);
-    });
-
-    it('should return the provided state if action type is not handled', () => {
-        reducedState = reducer(initialState, {
-            type: 'SOME_FAKE_ACTION'
+    describe('Given valid example text to apply', () => {
+        beforeEach(() => {
+            commandStub.returns(commandResultMock);
         });
 
-        expect(reducedState).toEqual(initialState);
+        it('should return the default state if the provided state is undefined', () => {
+            const reducedState = reducer(undefined, {});
 
-        sinon.assert.calledWithExactly(commandStub, firstInput);
-    });
+            expect(reducedState).toEqual(initialState);
 
-    it('should update the base range text text', () => {
-        const target = 'baseRangeText';
-        const textMock = 'some text';
+            sinon.assert.calledWithExactly(commandStub, firstInput);
+        });
 
-        actionMock = {
-            payload: {
-                target,
-                text: textMock
-            },
-            type: UPDATE_TEXT
-        };
+        it('should return the provided state if action type is not handled', () => {
+            const reducedState = reducer(initialState, {
+                type: 'SOME_FAKE_ACTION'
+            });
 
-        reducedState = reducer(initialState, actionMock);
+            expect(reducedState).toEqual(initialState);
 
-        const expectedInput = `(${textMock}) "minus" (${initialState.subtractiveRangeText})`;
+            sinon.assert.calledWithExactly(commandStub, firstInput);
+        });
 
-        sinon.assert.calledWithExactly(commandStub, expectedInput);
+        describe('Given valid text', () => {
+            it('should update the text', () => {
+                const baseRangeText = 'some base text';
+                const outputText = 'some output text';
+                const subtractiveRangeText = 'some subtractive text';
 
-        const expectedState = {
-            baseRangeText: textMock,
-            subtractiveRangeText: initialState.subtractiveRangeText,
-            outputText: commandResultMock
-        };
+                actionMock = {
+                    payload: {
+                        baseRangeText,
+                        outputText,
+                        subtractiveRangeText
+                    },
+                    type: UPDATE_TEXT
+                };
 
-        expect(reducedState).toEqual(expectedState);
-    });
+                const reducedState = reducer(initialState, actionMock);
 
-    it('should update the subtractive range text text', () => {
-        const target = 'subtractiveRangeText';
-        const textMock = 'some text';
+                const expectedState = {
+                    baseRangeText,
+                    outputText,
+                    subtractiveRangeText
+                };
 
-        actionMock = {
-            payload: {
-                target,
-                text: textMock
-            },
-            type: UPDATE_TEXT
-        };
+                expect(reducedState).toEqual(expectedState);
+            });
+        });
 
-        reducedState = reducer(initialState, actionMock);
+        describe('Given invalid text', () => {
+            it('should update the text', () => {
+                const baseRangeText = 'some base text';
+                const outputText = 'some error text';
+                const subtractiveRangeText = 'some subtractive text';
 
-        const expectedInput = `(${initialState.baseRangeText}) "minus" (${textMock})`;
+                actionMock = {
+                    payload: {
+                        baseRangeText,
+                        outputText,
+                        subtractiveRangeText
+                    },
+                    type: UPDATE_TEXT_ERROR
+                };
 
-        sinon.assert.calledWithExactly(commandStub, expectedInput);
+                const reducedState = reducer(initialState, actionMock);
 
-        const expectedState = {
-            baseRangeText: initialState.baseRangeText,
-            subtractiveRangeText: textMock,
-            outputText: commandResultMock
-        };
+                const expectedState = {
+                    baseRangeText,
+                    outputText,
+                    subtractiveRangeText
+                };
 
-        expect(reducedState).toEqual(expectedState);
-    });
+                expect(reducedState).toEqual(expectedState);
+            });
+        });
 
-    it('should apply the example text', () => {
-        const baseRangeText = 'some text';
-        const subtractiveRangeText = 'some text';
-        actionMock = {
-            payload: {
+        it('should apply the example text', () => {
+            const baseRangeText = 'some good base text';
+            const subtractiveRangeText = 'some good subtractive text';
+            actionMock = {
+                payload: {
+                    baseRangeText,
+                    subtractiveRangeText
+                },
+                type: APPLY_TEST_EXAMPLE
+            };
+
+            const reducedState = reducer(initialState, actionMock);
+
+            const expectedInput = `(${baseRangeText}) "minus" (${subtractiveRangeText})`;
+
+            sinon.assert.calledWithExactly(commandStub, expectedInput);
+
+            const expectedState = {
                 baseRangeText,
+                subtractiveRangeText,
+                outputText: commandResultMock
+            };
+
+            expect(reducedState).toEqual(expectedState);
+        });
+    });
+
+    describe('Given invalid example text to apply', () => {
+        it('should output the error message', () => {
+            const baseRangeText = 'some base text';
+            const subtractiveRangeText = 'some subtractive text';
+            const errorMock = 'some error';
+
+            actionMock = {
+                payload: {
+                    baseRangeText,
+                    subtractiveRangeText
+                },
+                type: APPLY_TEST_EXAMPLE
+            };
+
+            commandStub.throws(errorMock);
+
+            const reducerFn = () => reducer(initialState, actionMock);
+
+            expect(reducerFn).toThrow();
+        });
+
+        it('should set the input text', () => {
+            const baseRangeText = 'some base text';
+            const subtractiveRangeText = 'some subtractive text';
+            const errorMock = 'some error';
+
+            actionMock = {
+                payload: {
+                    baseRangeText,
+                    subtractiveRangeText
+                },
+                type: APPLY_TEST_EXAMPLE
+            };
+
+            commandStub.onCall(0).returns(commandResultMock);
+            commandStub.onCall(1).throws(new Error(errorMock));
+
+            const reducedState = reducer(initialState, actionMock);
+
+            const expectedState = {
+                baseRangeText,
+                outputText: errorMock,
                 subtractiveRangeText
-            },
-            type: APPLY_TEST_EXAMPLE
-        };
+            };
 
-        reducedState = reducer(initialState, actionMock);
-
-        const expectedInput = `(${baseRangeText}) "minus" (${subtractiveRangeText})`;
-
-        sinon.assert.calledWithExactly(commandStub, expectedInput);
-
-        const expectedState = {
-            baseRangeText,
-            subtractiveRangeText,
-            outputText: commandResultMock
-        };
-
-        expect(reducedState).toEqual(expectedState);
+            expect(reducedState).toEqual(expectedState);
+        });
     });
 });

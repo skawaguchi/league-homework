@@ -7,10 +7,10 @@ const baseChangeHandler = (text) => updateText('baseRangeText', text);
 const subtractiveChangeHandler = (text) => updateText('subtractiveRangeText', text);
 
 const mapStateToProps = (state) => ({
-    baseRangeText: state.baseRangeText,
+    baseRangeText: state.calculatedText.baseRangeText,
     hasErrors: state.hasErrors,
-    subtractiveRangeText: state.subtractiveRangeText,
-    outputText: state.outputText
+    subtractiveRangeText: state.calculatedText.subtractiveRangeText,
+    outputText: state.calculatedText.outputText
 });
 
 const mapDispatchToProps = (dispatch) => ({

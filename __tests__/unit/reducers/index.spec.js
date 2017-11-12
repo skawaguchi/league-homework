@@ -1,14 +1,14 @@
 import * as indexReducers from '../../../src/reducers';
 
-import calculatedTextReducer from '../../../src/reducers/calculated-text';
-import hasErrorsReducer from '../../../src/reducers/has-errors';
+import calculatedText from '../../../src/reducers/calculated-text';
+import hasErrors from '../../../src/reducers/has-errors';
 
 describe('Reducers index', () => {
     it(`should expose the calculated text reducer`, () => {
-        expect(indexReducers.calculatedTextReducer).toEqual(calculatedTextReducer);
+        expect(indexReducers.calculatedText).toEqual(calculatedText);
     });
 
     it(`should expose the calculated text reducer`, () => {
-        expect(indexReducers.hasErrorsReducer).toEqual(hasErrorsReducer);
+        expect(indexReducers.hasErrors).toEqual(hasErrors);
     });
 });

@@ -1,10 +1,8 @@
-import Chance from 'chance';
 import {
-    UPDATE_ERROR
+    UPDATE_TEXT,
+    UPDATE_TEXT_ERROR
 } from '../../../src/actions/list';
 import reducer from '../../../src/reducers/has-errors';
-
-const chance = new Chance();
 
 describe('Errors Reducer', () => {
     let actionMock;
@@ -29,16 +27,27 @@ describe('Errors Reducer', () => {
         expect(reducedState).toEqual(initialState);
     });
 
-    it('should update the error state', () => {
-        const payload = chance.bool();
+    describe('Given valid text', () => {
+        it('should not an error', () => {
+            actionMock = {
+                type: UPDATE_TEXT
+            };
 
-        actionMock = {
-            payload,
-            type: UPDATE_ERROR
-        };
+            reducedState = reducer(initialState, actionMock);
 
-        reducedState = reducer(initialState, actionMock);
+            expect(reducedState).toEqual(false);
+        });
+    });
 
-        expect(reducedState).toEqual(payload);
+    describe('Given a text error', () => {
+        it('should show an error', () => {
+            actionMock = {
+                type: UPDATE_TEXT_ERROR
+            };
+
+            reducedState = reducer(initialState, actionMock);
+
+            expect(reducedState).toEqual(true);
+        });
     });
 });

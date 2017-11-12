@@ -18,8 +18,15 @@ describe('SandboxClientConnector', () => {
     let stateMock;
     let storeMock;
     let textInputStub;
+    let baseRangeTextMock;
+    let outputTextMock;
+    let subtractiveRangeTextMock;
 
     beforeEach(() => {
+        baseRangeTextMock = 'some base test';
+        outputTextMock = 'some output test';
+        subtractiveRangeTextMock = 'some subtractive test';
+
         dispatchStub = sandbox.stub();
 
         textInputStub = sandbox.stub(textActions, 'updateText');
@@ -31,10 +38,12 @@ describe('SandboxClientConnector', () => {
 
     function renderComponent() {
         stateMock = Object.freeze({
-            baseRangeText: 'some base test',
-            hasErrors: chance.bool(),
-            subtractiveRangeText: 'some subtractive test',
-            outputText: 'some output test'
+            calculatedText: {
+                baseRangeText: baseRangeTextMock,
+                outputText: outputTextMock,
+                subtractiveRangeText: subtractiveRangeTextMock
+            },
+            hasErrors: chance.bool()
         });
 
         storeMock = mockStore(stateMock, dispatchStub);
@@ -74,10 +83,10 @@ describe('SandboxClientConnector', () => {
         });
 
         it('should have a component with the mapped store attributes', () => {
-            expect(component.props().baseRangeText).toEqual(stateMock.baseRangeText);
+            expect(component.props().baseRangeText).toEqual(baseRangeTextMock);
             expect(component.props().hasErrors).toEqual(stateMock.hasErrors);
-            expect(component.props().subtractiveRangeText).toEqual(stateMock.subtractiveRangeText);
-            expect(component.props().outputText).toEqual(stateMock.outputText);
+            expect(component.props().subtractiveRangeText).toEqual(subtractiveRangeTextMock);
+            expect(component.props().outputText).toEqual(outputTextMock);
         });
 
         assertTextInputAction('base', 'onBaseChanged');

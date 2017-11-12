@@ -87,6 +87,7 @@ This led me to thinking along these lines:
 7. A React interface to test the application live.
 8. After struggling a bit with combining arrays, though about an Interval Tree. Honestly, probably should've done this from the beginning, but to demo TDD I thought I'd start with the most basic solution and work my way up. Now I feel like I've invested too much time in this. In real life, I would be happy to do this. So I've missed the opportunity for two data structures: Interval Tree and State pattern. 
 9. I realized I hadn't coded a Redux app from scratch for a really long time. I decided to use this project as a refresher. I had forgotten all of the boilerplate and the pain of converting from React components using internal state to Redux. _However_, the process actually has reminded me why Redux is so nice, and gave me a bit of a deeper insight into where and when you calculate data and how to logically deal with the results. 
+10. I found an edge case bug. Given all of the other effort I've put in, I'm going to have to skip this last one. You can see it breaking if you select the last examply enter this base input text: `9:00-11:00, 13:00-15:00, 0:00-23:00`. 
 
 # Original Coding problem
 Write a program that will subtract one list of time ranges from another. Formally: for two

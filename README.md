@@ -1,6 +1,16 @@
 # League Homework Assignment: Time Range Subtraction
 
-## Prerequisites
+## Features
+These are the highlights behind this solution:
+- Written using Test-Driven Development (TDD)
+- If you strictly follow red -> green -> refactor -> repeat, coverage must be 100%, so coverage is 100% here.
+- Decided to build a UI to send input to the parsing script. I felt it would be helpful to have a tangible example of UI code to review in addition to my basic JavaScript.
+- Used this mini-project to try out development with the latest React, Redux, Babel, Webpack, ESLint, Enzyme, and Sinon.
+- Deeper dive into using Jest ()but avoided mocking in it where possible).
+- Used Chance.js for automated [fuzzing](http://searchsecurity.techtarget.com/definition/fuzz-testing).
+- Committed to Github as I would a real project so the reviewer could get a sense of my commit style (semantic git comments, attempted cohesion, mostly working patch commits, etc.).
+
+## Prerequisites to Run the Application
 This application prefers that you have `yarn` installed. If not, see the [installation instructions](https://yarnpkg.com/en/docs/install).You may also use normal `npm install`, which is bundled with node, but the app was developed with `yarn` in mind.
 
 This application is developed using Node 6.11.x. To switch between versions you're best off using `nvm`. It should run fine on other versions, but it's better to match the one this was developed on.
@@ -34,15 +44,7 @@ Run `yarn dis:prod` to output a production version of the application.
 # Process Journal
 I've tried to capture my thought process for insight into my ways of working.
 
-## Thoughts on Implementation
-### Regrets
-I'm not exactly happy with my implementation. I think that the logic around the subtractive method is weak because it relies on side-effects. I think I cheated a bit in terms of extracting to reduce cyclomatic complexity. The better way would have been to create a state machine with the complex states (probably when the subtractive range is before or equals the base range, and when it is after). This would be scalable. However, when you TDD you can refactor this drastically without fear. However, I've run out of time for this take-home challenge.
-
-The other thing I'm pretty sure can use re-work is the way I'm storing time. I can probably just do away with the whole `start` / `end` thing and just use `moment` objects. I'm going to leave it as-is since using `moment` objects in a very isolated way allows us to create really simple POJOs. That's a good starting point, and again, if we need to refactor, we can because this code is TDD'd.
-
-After seeing the UI, I realized that sorting the output and combining ranges that intersect or overlap would be good.
-
-### Summary
+## Summary
 Overall, I hope that this gives insight into how I think and work. My git commits, which you can view if you'd like (just ask me) to get a sense of my workflow, are pretty representative of how I work. It was tough doing this off-hours on a busy weekend, but at least it's an approximation of how I work so I hope that you see some value in this approach. 
 
 I understand that my style of programming may not appeal to all. After working for years trying to find the fast solution, I've come to the conclusion that I'd rather be methodical and approach my work as a craftsman, and so far TDD is the best for that philosophy. It probably has to do with my mostly enterprise experience for the past six years where scalability and extensibility are inevitable. I hope that bias won't be held against me. 
@@ -82,6 +84,8 @@ This led me to thinking along these lines:
 5. After getting into the problem space more, I decided to introduce `moment.js` after all to simplify the comparison aspect of the solution. We don't _need_ it, but it just makes this simpler. I like `moment` because it's very declarative and this code will be easier to process for the reader. The alternative is to work with the `Date` object directly. We could easily just hard-code a year, month, etc. and just deal with the output milliseconds from the epoch, but who wants to look at that? Not me! If forced to, say, because we don't want the external dependency, then I'd do that but extract it into its own class.
 6. It's looking like Big-O `O(A * B)` is unavoidable. It's not bad.
 7. A React interface to test the application live.
+8. After struggling a bit with combining arrays, though about an Interval Tree. Honestly, probably should've done this from the beginning, but to demo TDD I thought I'd start with the most basic solution and work my way up. Now I feel like I've invested too much time in this. In real life, I would be happy to do this. So I've missed the opportunity for two data structures: Interval Tree and State pattern. 
+9. I realized I hadn't coded a Redux app from scratch for a really long time. I decided to use this project as a refresher. I had forgotten all of the boilerplate and the pain of converting from React components using internal state to Redux. The process has reminded me why Redux is so nice.
 
 # Original Coding problem
 Write a program that will subtract one list of time ranges from another. Formally: for two
